@@ -1,0 +1,11 @@
+Package: netcore-qos
+Version: 1.0.0-1.0.1
+Depends: libc, tc, kmod-sched-core, kmod-ifb
+Source: package/apps/qos
+SourceName: netcore-qos
+Section: Netcore packages
+SourceDateEpoch: 1721381753
+Maintainer: CaoZhiwei <caozw@netcoretec.com>
+Architecture: all
+Installed-Size: 1314
+Description:  Quality of service

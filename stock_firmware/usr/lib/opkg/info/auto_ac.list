@@ -1,0 +1,15 @@
+/usr/bin/led_blink_off
+/usr/bin/led_blink_on
+/usr/bin/auto_ac_ac_upgrade.sh
+/usr/bin/auto_ac
+/usr/bin/get_rtl_version
+/usr/bin/mtk_wifi_vlan
+/etc/config/auto_ac
+/usr/bin/gen_pwd
+/etc/config/auto_ac2
+/etc/init.d/auto_ac.init
+/www/cgi-bin/ac_upgrade
+/etc/compile
+/usr/bin/load_para
+/etc/rsa_pub
+/usr/bin/auto_ac_upgrade.sh

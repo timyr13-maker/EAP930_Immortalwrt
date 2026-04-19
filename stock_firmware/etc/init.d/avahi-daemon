@@ -1,0 +1,31 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+START=99
+
+USE_PROCD=1
+PROG=avahi-daemon
+
+start_service() {
+	def=`cat /etc/avahi/services/http.service|grep REPLACE`
+	if [ -n "$def" ]; then
+		LAN_MAC=$(impd readmac_lan || ifconfig eth0 | grep HWaddr | tail -c 20)
+		ssid_suffix=$(echo $LAN_MAC | awk -F ':' '{print $4 $5 $6}' | head -c 6)
+		type=$(uci get customer.info.dev_type)
+		model=$(uci get customer.info.model)
+		sed "s/REPLACE1/$type/;s/REPLACE2/$model/" /etc/avahi/services/http.service > /tmp/avahi_http
+		cp -f /tmp/avahi_http /etc/avahi/services/http.service
+		sed "s/REPLACE1/$type-$ssid_suffix/" /etc/avahi/avahi-daemon.conf > /tmp/avahi_config
+		cp -f /tmp/avahi_config /etc/avahi/avahi-daemon.conf
+	fi
+
+	procd_open_instance
+	procd_set_param command "$PROG"
+	procd_append_param command -s
+	procd_set_param respawn
+	procd_close_instance
+}
+
+reload_service() {
+	procd_send_signal "$PROG"
+}
+

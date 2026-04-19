@@ -1,0 +1,3 @@
+/usr/bin/network_tools
+/etc/init.d/network_tools
+/www/cgi-bin/network_tools

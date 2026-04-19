@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>
+		<script type="text/javascript">
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js"></script>	
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>
+	    <style>
+	  		/*#rf-settings-tip-box{width: 60%; margin: 0 auto;}*/
+	    	.select_All{vertical-align: middle;}
+	    	#wired_vlan_table thead tr th:nth-child(2):hover,
+	    	#wired_vlan_table thead tr th:nth-child(3):hover,
+	    	
+	    	#wired_vlan_table thead tr th:nth-child(6):hover,
+	    	#wired_vlan_table thead tr th:nth-child(5):hover,
+			#wired_vlan_table thead tr th:nth-child(8):hover
+	    	{
+	    		cursor: pointer;
+	    		background-color: #3093DA;
+	    		color: #ffffff;
+	    		 
+	    	}
+			.quick_span {
+			    cursor: pointer;
+			}
+			#select_page{margin-left: 6%;margin-right: 5px;}
+	    </style>
+	</head>
+	<body>
+		<div class="g-wrapper">
+			 <!--头部公用-->   
+		<div id="header"></div>
+			
+		    <!--内容-->
+		    <div class="totalShell_content">
+		    	<div class="f-locationH3-container">
+		    	</div>
+		    		<div class="f-content-container">   
+		    	<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="d-cnt">
+							<div class="f-shell"><!--中间内容--> 
+								<div class="f-smallShell-two">
+									
+									
+							<!--form表单在此-->	
+							<div class="infoone">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="form-sec">
+		    						
+		    						
+								
+						
+							<div id="wired_vlan_list" class="tab-pane">
+								<!--表格-->
+						        <div class="table-sec marginTop20">
+						        	
+						            <table  class="data-table table table-striped "  id="wired_vlan_table"></table>
+						            <div style="margin-top: 20px;">
+						            	<input type="checkbox" name="checkboxShall" value="0" id="select_page" class="checkboxShall">
+						            	<label class="select_all_page"></label>
+						            </div>
+						            <div  class="form-group text-center marginTop20">
+						            	<button type="button" class="btn  button-set"></button>
+						            	
+						            </div>
+						        </div>
+					        </div>
+					        
+					        <div id="wired_vlan_details" class="modal fade" tabindex="-1">
+												<div class="modal-dialog">
+													<div class="modal-content">
+													  <div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+														<h4 class="modal-title"></h4>
+													  </div>
+													  <form action="javascript:void(0);" id="add_url_frm" name="add_url_frm" method="post">
+														  <div class="modal-body">	
+															
+															
+															<div class="form-group clearfix">
+																<div class="col-xs-6  col-sm-offset-0 col-sm-4 col-md-4 col-lg-5 f-label-w">
+																	<label class="f-label" for="channel_2_4"></label>
+																</div>
+																<div class="col-xs-6  col-sm-offset-0 col-sm-8 col-md-8 col-lg-7 f-control">
+																	<input type="checkbox" class="hidden checkboxAll checkboxClick" id="iptv_enable" name="iptv_enable" value="0">
+																	<label for="toggle-button" class="button-label marginTop8 enable_click">
+																		<span class="circle"></span>
+																		<span class="text on">ON</span>
+																		<span class="text off">OFF</span>
+																	</label>
+																	<div class=" tipsText disabled_span"></div>
+																</div>
+															</div>
+														<div id="iptv_enable_show" class="hidden">
+															<div class="form-group clearfix">
+																<div class="col-xs-6  col-sm-offset-0 col-sm-4 col-md-4 col-lg-5 f-label-w">
+																	<label class="f-label" for="channel_5"></label>
+																</div>
+																<div class="col-xs-6  col-sm-offset-0 col-sm-8 col-md-8 col-lg-7 f-control coverSelect">
+																	<input id="iptv_vlan" type="text" name="iptv_vlan" onkeyup="value=value.replace(/\D/g,'')" class="form-control form-control-middle" maxlength="4" autocomplete="off">
+																	<span class="text_title"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<div class="col-xs-6  col-sm-offset-0 col-sm-4 col-md-4 col-lg-5 f-label-w">
+																	<label class="f-label" for="channel_2_4"></label>
+																</div>
+																<div class="col-xs-6  col-sm-offset-0 col-sm-8 col-md-8 col-lg-7 f-control">
+																	<input type="checkbox" class="hidden checkboxAll checkboxClick" id="iptv_untag" name="iptv_untag" value="0">
+																	<label for="toggle-button" class="button-label marginTop8 enable_click">
+																		<span class="circle"></span>
+																		<span class="text on">ON</span>
+																		<span class="text off">OFF</span>
+																	</label>
+																</div>
+															</div>
+															</div>
+															
+															
+															<input type="hidden" id="url_action" value="add" />
+															<input type="hidden" id="url_index" />
+															<input type="hidden" id="url_id" />
+														  </div>
+														  <div class="modal-footer">
+															<button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+															<button type="submit" class="dialog-btn btn-confirm"></button>
+														  </div>
+													  </form>
+													</div>
+												  </div>
+								
+					        </div>
+	     			</div>
+		    	</div>
+		    </div>   </div>
+		  
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+		    </div>
+		</div>
+		
+
+		
+    	<script type="text/javascript">
+			loadJsQueue(["wired_vlan"],true);
+		</script>
+	</body>
+</html>

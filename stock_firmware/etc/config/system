@@ -1,0 +1,25 @@
+
+config system
+	option ttylogin '0'
+	option log_size '64'
+	option urandom_seed '0'
+	option hostname 'EAP930'
+	option language 'CN'
+	option initialized '1'
+	option no_dnsmasq '1'
+	option ledoff '0'
+	option auto_ac '1'
+	option admin 'root'
+	option magic '8a2e4c89'
+	option passwd '749455323GTa'
+	option timezone '-3'
+	option zonename ' Москва'
+
+config timeserver 'ntp'
+	option enabled '1'
+	option enable_server '0'
+	list server '0.openwrt.pool.ntp.org'
+	list server '1.openwrt.pool.ntp.org'
+	list server '2.openwrt.pool.ntp.org'
+	list server '3.openwrt.pool.ntp.org'
+

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+while read line; do
+	ip=`echo "$line" | awk '{print $1}'`
+#	echo $line
+	if [ x"$ip" = x"$REMOTE_ADDR" ]; then
+		mac=`echo "$line" | awk '{print $5}'`
+		break;
+	fi
+done << EOF
+$(ip neigh)
+EOF
+
+cat << EOF
+Status: 200 OK
+Content-type: application/json
+
+{
+	"jsonrpc": "2.0",
+	"id ": 1,
+	"result": [0,{"mac":"$mac"}]
+}
+EOF
+
+

@@ -1,0 +1,3 @@
+/etc/modules.d/netinfo
+/etc/init.d/netinfo
+/lib/modules/5.4.246/netinfo.ko

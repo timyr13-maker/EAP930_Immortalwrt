@@ -1,0 +1,10 @@
+Package: network_diagnosis
+Version: 1.0-20221128
+Depends: libc, libubox20210516, libuci20130104, libubus20210630, libnorouter
+Source: package/apps/network_diagnosis
+SourceName: network_diagnosis
+Section: Netcore packages
+SourceDateEpoch: 1718102175
+Architecture: all
+Installed-Size: 5870
+Description:  network diagnosis.

@@ -1,0 +1,70 @@
+#!/bin/sh
+
+. /lib/functions.sh
+. /usr/share/libubox/jshn.sh
+
+get_interface_status () {
+	local iface iface_select type
+
+	iface=$1
+	iface_select=$2
+
+	[ -n "$iface_select" -a "$iface" != "$iface_select" ] && return
+
+	case "$iface" in
+		wan*)
+			json_add_object $iface
+			json_add_string "status" "$(cat /var/run/mwan3track/$iface/STATUS || echo offline)"
+			json_close_object
+			;;
+		*)
+			;;
+	esac
+}
+
+main () {
+
+	case "$1" in
+		list)
+			json_init
+			json_add_object "status"
+			json_add_string "section" "x"
+			json_add_string "interface" "x"
+			json_add_string "policies" "x"
+			json_close_object
+			json_dump
+			;;
+		call)
+			case "$2" in
+			status)
+				local section iface
+				read input;
+				json_load "$input"
+				json_get_var section section
+				json_get_var iface interface
+
+				config_load network
+				json_init
+				case "$section" in
+					interfaces)
+						json_add_object interfaces
+						config_foreach get_interface_status interface "${iface}"
+						json_close_object
+						;;
+					*)
+						json_add_object interfaces
+						local allIface=$(ubus list network.interface.wan* | cut -d'.' -f3)
+						for interface in $allIface; do
+							get_interface_status $interface
+						done
+						json_close_object
+						;;
+				esac
+				json_dump
+				;;
+			esac
+			;;
+	esac
+}
+
+main "$@"

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>
+		<script type="text/javascript">
+			storeApp();
+			removeDir();
+			setPath("exit");
+			setAppParam();
+		</script>
+		<script type="text/javascript"> 
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='stylesheet' type='text/css' href='css/inside.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+//			document.write("<link rel='stylesheet' type='text/css' href='css/index.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js" ></script>
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>		
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>	
+		
+		<style>
+		
+#speed-wrapper { width:30px; font-size:14px; position:absolute; left:0; top:18%; width:100%; text-align:center; }
+#speed-wrapper-top { width:30px; font-size:14px; position:absolute; left:0; top:-8%; width:100%; text-align:center; }
+#run-time-wrapper,#host-wrapper { position:absolute; width:100%; left:0; top:-25px; }
+
+@media (max-width: 780px) {
+	.status-txt { margin-bottom:3px; }
+	#speed-wrapper-top{top: -18%;}
+}
+@media (max-width: 768px) {
+	.icon-describe { margin-top: 14px; }
+
+	#wan-status-icon {  width:18px; margin-left:-9px; top:-14px; }
+	
+	#freq-2g-sec { top:-21px; }
+	#freq-2g-sec,#freq-5g-sec {height:16px;}
+	#freq-2g-sec span,#freq-5g-sec span { font-size:12px; line-height:16px; }
+	#wan_ip { font-size:12px; margin-top:10px; }
+	#wan_ipv6 { font-size:12px;}
+	
+	#login-site-sec { font-size:14px; }
+	
+	#router-info-box .value-box {
+		font-size:24px;
+	}
+	
+	#module-list-sec .col-xs-12 , #module-list-sec .col-sm-4{
+		width:50%;
+	}
+	
+	.menu-item { padding:0; margin:0; border-radius: 0; -webkit-box-shadow: none; box-shadow: none; }
+	
+	.menu-item-img{
+		width:58px;
+		height:58px;
+		margin-top:30px;
+		margin-right:0;
+		position:relative;
+		left:inherit;
+		top:inherit;
+	}
+	.menu-item h3{
+		font-size:16px;
+		margin:20px 0 0 0;
+		padding-bottom:10px;
+		text-align:center;
+		width:100%;
+	}
+	
+	.module-sec{ border-right:1px solid #e7eaf3; border-bottom:1px solid #e7eaf3; }
+	
+	.menu-item:after { display:none; }
+	
+	#module-list-sec { margin:0; }
+	
+	.module-sec {
+		padding: 0 !important;
+	}
+	
+}
+
+		</style>
+	</head>
+	<body >
+		
+		
+		<div class="g-wrapper">
+			<div class="d-cnt">
+			<div id="header"></div>
+			<div id="info-panel">
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							
+							<div class="panel-box">
+								<div id="net-status-box" class="clearfix">
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 icon-sec">
+										<a id="wired-link" href="javascript:void(0);"><img src="./images/internet_icon2.png" /></a>										
+										<p class="icon-describe"></p>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 line-sec">
+										<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 wrapper">
+											<div class="status-txt">
+												<div id="speed-wrapper-top" class="">
+													<span  class="internet_IP"></span>
+													<span class="value-box" id="wan_ip_show"></span>
+												</div>
+												<i id="wan-status-icon"><img /></i>
+												<div id="speed-wrapper" class="hidden">
+													<span id="speed-val" class="value-box hidden"></span>
+													<span id="speed-unit" class="hidden"></span>
+												</div>
+											</div>
+											<div id="wan-status-line" class="line"></div>
+										</div>
+									</div>
+
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 icon-sec">
+										<div id="run-time-wrapper">
+											<span id="run-time-val" class="value-box"></span>
+											<span id="run-time-unit"></span>
+										</div>
+										<a id="gateway-link" href="javascript:void(0);"><img id="gateway-link_img" src="./images/lq10.png" /></a>
+										<div class="ip_address_index" ><span>IP:</span><span id="ip_address_index"></span></div>
+										<p class="icon-describe hidden" ></p>
+									</div>
+									
+								</div>
+								<div id="router-info-box" class="clearfix">
+									
+									<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"></div>
+									
+									<!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center">
+										<button type="button" class="btn btn-i-restart">
+											<span id="lbl-reboot"></span>
+										</button>
+									</div>-->
+									<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			
+			<div class="container-list">
+				<div class="container-fluid">
+					
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div id="module-list-sec" class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		loadJsQueue(["ap_index"],true);
+		
+		
+	</script>
+	</body>
+</html>

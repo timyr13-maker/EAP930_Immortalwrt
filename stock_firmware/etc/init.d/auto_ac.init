@@ -1,0 +1,108 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=92
+
+USE_PROCD=1
+auto_ac_init() {
+	LAN_MAC=$(impd readmac_lan || ifconfig br-lan | grep HWaddr | tail -c 20)
+	lan_mac=$(uci get network.dev_lan.macaddr)
+	[ -z "$lan_mac" ] && uci set network.dev_lan.macaddr=$LAN_MAC && uci commit network
+	lan_mac=$(uci get network.dev_lan.macaddr)
+	login=$(uci get customer.info.login)
+	echo "1.127.127.254 $lan_mac" > /sys/module/br_host/parameters/dnat
+	echo "1.127.127.254 $login" > /sys/module/br_host/parameters/dns
+	echo "1" > /sys/module/br_host/parameters/drop_dhcp
+	echo -n "eth1" > /sys/module/br_host/parameters/wan_name
+	echo "7700" > /sys/module/br_host/parameters/drop_udp_port
+	echo 1 > /sys/kernel/debug/hnat/hook_toggle
+	echo 0 > /sys/mtqos/enable_mtqos
+	echo "819200" > /proc/sys/net/core/wmem_max
+	echo "819200" > /proc/sys/net/core/rmem_max
+	ebtables -N mac_acl
+	ebtables -D FORWARD -j mac_acl
+	ebtables -I FORWARD -j mac_acl
+	iptables -D INPUT -p tcp --dport 80 -j DROP
+	iptables -I INPUT -p tcp --dport 80 -j DROP
+	iptables -t nat -N auto_ac_dnat
+	iptables -t nat -N auto_ac_snat
+	iptables -t nat -I PREROUTING -j auto_ac_dnat
+	iptables -t nat -I POSTROUTING -j auto_ac_snat
+	password=$(uci get system.@system[0].passwd)
+	[ -z "$password" ] && ubus call routerd passwd_set '{"user":"root", "pwd":"admin"}'
+	password=$(uci get system.@system[0].passwd)
+	ac_pwd=$(uci get auto_ac.auto_ac.passwd)
+	if [ -z "$ac_pwd" ]; then
+		uci set auto_ac.auto_ac.passwd=$password
+		uci commit auto_ac
+	fi
+}
+
+load_value() {
+	local idx=$1
+	local idx2=$2
+	local key=$3
+	local val=$(uci get wificfg.2G.$key$idx2)
+	if [ -n "$val" ]; then
+		uci set auto_ac.@cfg[0].$key$idx=$val
+	else
+		[ -n "$4" ] && uci set auto_ac.@cfg[0].$key$idx=$4
+		#echo "failed read $key"
+	fi
+}
+
+def_para() {
+	def=$(uci get auto_ac.auto_ac.is_configed)
+	[ "$def" == "1" ] && return
+	load_value 0 1 SSID
+	load_value 0 1 Enable
+	load_value 0 1 EncrypType NONE
+	load_value 0 1 AuthMode OPEN
+	load_value 0 1 Passwd
+
+	local val=$(uci get wificfg.5G.SSID1)
+	uci set auto_ac.@cfg[0].SSID1=$val
+	load_value 1 1 Enable
+	load_value 1 1 EncrypType NONE
+	load_value 1 1 AuthMode OPEN
+	load_value 1 1 Passwd
+	contry_region=$(uci get wificfg.2G.CountryRegion)
+	[ "$contry_region" == "0" ] && contry_region=1
+	uci set auto_ac.@cfg[0].CountryRegion0=$contry_region
+	uci set auto_ac.@cfg[0].CountryRegion1=$contry_region
+	ht_gi=$(uci get wificfg.2G.HT_GI)
+	uci set auto_ac.@cfg[0].HT_GI0=$ht_gi
+	ht_gi=$(uci get wificfg.5G.HT_GI)
+	uci set auto_ac.@cfg[0].HT_GI1=$ht_gi
+	uci commit auto_ac
+}
+
+check_wificfg() {
+	dual=$(uci get wificfg.2G.dual_frequency_switch)
+	[ "$dual" == "0" ] && return
+	echo "reset dual_frequency_switch" > /dev/console
+	killall bs20
+	uci set wificfg.2G.dual_frequency_switch=0
+	uci commit wificfg
+}
+
+start_service() {
+	ifconfig eth1 down
+	ifconfig eth1 up
+	check_wificfg
+	chmod 644 /etc/config/network
+	status=$(uci get system.@system[0].auto_ac)
+	[ "$status" == "0" ] && return
+	[ -z "$status" ] && uci set system.@system[0].auto_ac=1;uci commit system
+	auto_ac_init
+	def_para
+	iwpriv ra1 set Debug=0
+	procd_open_instance
+	procd_set_param command /usr/bin/auto_ac br-lan
+	procd_set_param respawn
+	[ -e /proc/sys/kernel/core_pattern ] && {
+		procd_set_param limits core="unlimited"
+	}
+
+	procd_close_instance
+}

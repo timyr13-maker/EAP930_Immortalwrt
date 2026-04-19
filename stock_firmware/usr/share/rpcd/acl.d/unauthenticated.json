@@ -1,0 +1,40 @@
+{
+	"unauthenticated": {
+		"description": "Access controls for unauthenticated requests",
+		"read": {
+			"ubus": {
+				"routerd":["param_status", "get_wan_type", "wan_config_set", "wan_ipv6_config_set", "passwd_set", "get_language", "login_name_get", "app_info", "wan_ipv6_config_get", "info"],
+				"session": ["access", "login"],
+				"rkey.session":["login"],
+				"mwan3": ["status"],
+				"acap":["ac_ap_status"],
+				"impd_srv": ["*"],
+				"rkey":["get_rand_key"],
+				"ahsapd.basic":["getSystemInfo"],
+				"ahsapd.uplink":["getUplinkInfo"],
+				"net_detect":["net_detect_check"],
+				"wifi":["get_apply_status"],
+				"wisp":["status"],
+				"network_tools":["tools_tmpset"],
+				"connection_priority":["connection_priority_get"]
+			},
+			"uci": ["wificfg", "customer", "system", "wisp"]
+		},
+		"write": {
+			"ubus": {
+				"routerd":["param_status", "get_wan_type", "wan_config_set", "wan_ipv6_config_set", "passwd_set", "set_language"],
+				"uci": ["get", "set", "apply"],
+				"mwan3": ["status"],
+				"auto_update": ["auto_update_set", "auto_update_agent_set"],
+				"wifi":["set_backhaul", "map_cfg", "scan"],
+				"ctcapd.wifi":["set"],
+				"rkey.uci":["*"],
+				"rkey.routerd":["wan_config_set", "passwd_set", "param_status"],
+				"wisp":["connect"],
+				"network_tools":["tools_tmpset"],
+				"connection_priority":["connection_priority_set"]
+			},
+			"uci": ["wificfg", "system", "auto_update", "wisp"]
+		}
+	}
+}

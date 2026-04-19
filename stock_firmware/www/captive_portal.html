@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>
+		<script type="text/javascript">
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js"></script>	
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/publicPlugin/b64.js" ></script>
+	
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>
+		<style>
+			 .select-page-con {
+				margin: -2px 16px 8px 20px;
+				float: left;
+				white-space: normal;
+			}
+			.select-page-con label {
+				margin-bottom: 0;
+				margin-left: 4px;
+				font-size: 14px;
+			}
+			.name-section span:nth-last-child(1){
+				overflow: hidden;
+				    text-overflow: ellipsis;
+				    vertical-align: middle;
+				    white-space: pre;
+					height: inherit;
+					background-position: right 8px;
+					background-size: 16px;
+			}
+			.clone-row{ margin-bottom: 17px; }
+			#uam_allowed_wrapper .portal_optional { line-height: 36px; }
+			 @media (max-width: 575px) {
+			  .select-page-con {
+			                margin: -2px 10px 6px 0;
+			                float: none;
+			            }
+			}
+			  @media (max-width: 1500px) {
+				.table-sec .table thead tr th:first-child {
+				    display: block;
+				    padding-left: 15px;
+				}
+				.table-sec .table > tbody.TabFooter td {
+				    padding-left: 15px;
+				}
+				.select-page-con {
+				    margin-left: 0;
+				}
+			}
+			.table-sec .table thead tr th:nth-child(2), .table-sec .table tbody tr td:nth-child(2) {
+			    padding-left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-wrapper">
+			 <!--头部公用-->   
+			<div id="header"></div>
+		    <!--内容-->
+		    <div class="totalShell_content">
+		    	<div class="f-locationH3-container">
+		    	</div>
+		    	<div class="f-content-container">
+		    		<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="d-cnt off">
+							<div class="f-smallShell"><!--中间内容--> 
+								<div class="f-smallShell-two">
+									
+									
+									<!--form表单在此-->	
+									<div class="infoone">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="form-sec">
+													<div id="repeater-tip-box" class="tip-box off"></div>
+													<form class="form_captive_portal marginTop50" name="form_captive_portal" onsubmit="return false" method="post" id="captive_portal_form">
+														<div class="form-group clearfix">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																<input type="checkbox" class="hidden checkboxAll checkboxClick " id="captive_portal_enable"  name="captive_portal_enable" value="0" checked="checked">
+																<label class="button-label f-switchTrue marginTop8 enable_click" id="captive_portal">
+																	<span class="circle"></span>
+																	<span class="text on">ON</span>
+																	<span class="text off">OFF</span>
+																</label>
+															</div>
+														</div>
+														<div id="captive_portal_show" class="hidden">
+															
+														
+														<div class="form-group clearfix">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control coverSelect">
+																<select  name="ap_mode" id="isp">
+																	
+																</select>
+															</div>
+														</div>
+														
+														
+															<div class="form-group clearfix" id="nasid_div">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block" id="nasid"  maxlength="64" />
+																	
+																</div>
+															</div>
+														
+														
+														<div id="wifisystem_show" >
+															
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="password" class="form-control   allChange inline-block" id="password"  maxlength="64" />
+																	
+																</div>
+															</div>
+														</div>
+														
+														<div class="form-group clearfix">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																<div class="checkbox2 marginTop5">
+																	<input type="checkbox" class="checkboxShall " id="checkboxShall_0" idx="0" value="0">
+																		<label class="checkbox_lb f-label-title"></label>
+																	<input type="checkbox" class="checkboxShall" id="checkboxShall_1" idx="1" value="0">
+																		<label class="checkbox_lb f-label-title"></label>
+																	<input type="checkbox" class="checkboxShall hidden" id="checkboxShall_2"  idx="2" value="0">
+																		<label class="checkbox_lb f-label-title hidden"></label>
+																	<input type="checkbox" class="checkboxShall hidden"  id="checkboxShall_3"  idx="3" value="0">
+																		<label class="checkbox_lb f-label-title hidden"></label>
+																	<!-- <input type="checkbox" class="checkboxShall" value="0">
+																		<label class="checkbox_lb f-label-title">LAN1</label>
+																	<input type="checkbox" class="checkboxShall" value="0">
+																		<label class="checkbox_lb f-label-title">LAN2</label>
+																	<input type="checkbox" class="checkboxShall" value="0">
+																		<label class="checkbox_lb f-label-title">LAN3</label> -->
+																	<span id="lan_PortStr" style="margin-left: 17px; display: none;"></span>
+																	
+																	
+																</div>
+																<input type="hidden" id="dev_type" value=""/>
+															</div>
+														</div>
+														
+														<!-- 手动 -->
+														<div id="captive_portal_manul" class="hidden">
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block" id="local_network" autocomplete="off" maxlength="64">
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block" id="captive_portal_ur" autocomplete="off" maxlength="64">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block" id="uam_server" autocomplete="off" maxlength="64">
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="uam_secret" autocomplete="off" maxlength="64">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_server1" autocomplete="off" maxlength="64">
+																	
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_server2" autocomplete="off" maxlength="64">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_secret" autocomplete="off" maxlength="128">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_nas_id" autocomplete="off" maxlength="128">
+																	<!-- <span class="portal_optional one-line"></span> -->
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_name" autocomplete="off" maxlength="128">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="radius_location_id" placeholder="isocc=US,cc=1,ac=408,network=my wifi" autocomplete="off" maxlength="128">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="preferred_dns" autocomplete="off" maxlength="128">
+																	
+																</div>
+															</div>
+															
+
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control   allChange inline-block one-line" id="alternate_dns" autocomplete="off" maxlength="128">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control  allChange inline-block one-line" id="leasetime" autocomplete="off" maxlength="128">
+																	<span class="portal_time one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+																	<input type="text" name="upward_text" class="form-control allChange inline-block one-line" id="coa_port" autocomplete="off" maxlength="128">
+																	<span class="portal_optional one-line"></span>
+																</div>
+															</div>
+															
+															<div class="form-group clearfix" id="uam_allowed_wrapper">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control" id="uamAllowed">
+																	<div class="clone-row clearfix">
+																		<div class="pull-left" style="position:relative;">
+																			<input type="text" maxlength="64" id="uam_allowed_0" class="form-control" autocomplete="off">
+																		</div>
+																		<div class="pull-left" style="margin-left:10px;">
+																			<button class="btn add-row" type="button">+</button>
+																		</div>
+																		<span class="portal_optional one-line"></span>
+																	</div>
+																</div>
+																
+															</div>
+															
+															<div class="form-group clearfix" id="uam_domain_wrapper">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control" id="uamDomain">
+																	<div class="clone-row clearfix">
+																		<div class="pull-left" style="position:relative;">
+																			<input type="text" maxlength="64" id="uam_domain_0" class="form-control" autocomplete="off">
+																		</div>
+																		<div class="pull-left" style="margin-left:10px;">
+																			<button class="btn add-row" type="button">+</button>
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+															
+														</div>
+														
+														</div>
+														
+														
+														<div class="form-group clearfix">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																<button type="button" class="btn btn-save"></button>
+															</div>
+														</div>
+														
+														<div class="form-group clearfix marginTop50 device_whitelist_enable_div">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																<input type="checkbox" class="hidden checkboxAll checkboxClick " id="device_whitelist_enable"  name="device_whitelist_enable" value="0" checked="checked">
+																<label class="button-label f-switchTrue marginTop8 enable_click"  id="device_whitelist" style="display: block;">
+																	<span class="circle"></span>
+																	<span class="text on">ON</span>
+																	<span class="text off">OFF</span>
+																</label>
+																<span class="f-lightBlueColor prompt_text" style="margin-top: 6px;display: inline-block;font-size: 12px;"></span>
+															</div>
+														</div>
+														
+														<div id="device_whitelist_div" class="" >
+															<div id="device_whitelist_title" class="cnt-header clearfix" >
+																<h2 class="title"></h2>
+																
+																<span class="f-cursor f-lightBlueColor" id="add_device" style="float: right;line-height: 40px;"></span>
+															</div>
+															
+															<div class="table-sec">
+																<div class="input-group ap-search-con clearfix hidden" style="margin-left: 2.5%;float: none;margin-bottom: 10px;">
+																	<input type="text" class="form-control" placeholder="Search for..." id="device_whitelist_search_input">
+																	<span class="input-group-btn">
+																	<button class="btn btn-default" type="button" id="device_whitelist_search"><i class="icon-search">\e003</i></button>
+																  </span>
+																</div><!-- /input-group -->
+																<table class="table" id="device_whitelist_table"></table>
+																
+															</div>
+															<div class="form-group clearfix marginTop50">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																	<button type="button" class="btn btn-del"></button>
+																	<button type="button" class="btn btn-del-all hidden"></button>
+																</div>
+															</div>
+														</div>
+													</form>
+													<!-- 添加 -->
+													<div class="hidden marginTop50" id="add_devices_show">
+														<div class="form-group clearfix">
+															<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+															<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control" >
+																<label class="radio2 radio_size f-color1 radio2 marginTop6">
+																	<input type="radio" name="add_devices_radio" class="radio_all" value="0" checked="checked"> 
+																	<span class="font_size14 routing-mode"></span>
+																</label>
+																 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+																	<input type="radio" name="add_devices_radio" class="radio_all" value="1"> 
+																	<span class="font_size14 routing-mode"></span>
+																</label>
+																<p class="tipsText"></p>
+															</div>
+														</div>
+														
+														<!-- 在线添加 -->
+														<div class="hidden marginTop20 add_devices_div" id="add_devices_online">
+															
+															<div id="hotspot_host_title" class="cnt-header clearfix" >
+																<h2 class="title"></h2>
+															</div>
+															
+															<div class="table-sec form-group ">
+																<div class="input-group ap-search-con clearfix hidden" style="margin-left: 2.5%;float: none;margin-bottom: 10px;">
+																	<input type="text" class="form-control" placeholder="Search for..." id="hotspot_host_search_input">
+																	<span class="input-group-btn">
+																	<button class="btn btn-default" type="button" id="hotspot_host_search"><i class="icon-search">\e003</i></button>
+																  </span>
+																</div><!-- /input-group -->
+																<table class="table" id="hotspot_host_table"></table>
+															</div>
+															
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																	<button type="button" class="btn btn-confirm"></button>
+																	<button type="button" class="btn btn-return"></button>
+																</div>
+															</div>
+														</div>
+														<form class="form_manually_adding_devices marginTop50" name="form_manually_adding_devices" method="post" id="manually_adding_devices_form">
+														
+														<!-- 手动 添加-->
+														<div class="hidden marginTop20 add_devices_div" id="manually_adding_devices">
+															
+															
+																<div class="form-group clearfix">
+																	<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																	<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																		<input type="text" id="adding_devices_name0" name="name" autocomplete="off" class="form-control adding_devices_name" maxlength="127">
+																	</div>
+																</div>
+																
+																<div class="form-group clearfix">
+																	<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+																	<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																		<input type="text" id="adding_devices_mac0" name="mac" autocomplete="off" class="form-control inline-block adding_devices_mac">
+																		<button type="button" class="btn add-row">+</button>
+																	</div>
+																</div>
+															<div id="adding_devices_input">	
+															</div>
+															
+						
+															<div class="form-group clearfix">
+																<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5"></label>
+																<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+																	
+																	<button type="button" class="btn btn-add"></button>
+																	<button type="button" class="btn btn-return"></button>
+																</div>
+															</div>
+														</div>
+														
+														</form>
+														
+														
+														
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>	
+									<!--设置结束-->
+							
+							
+									
+									
+			 </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+		</div>
+		<!--修改设备名称弹窗-->
+		<div class="modal fade" id="addModal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body">
+				<form action="javascript:void(0);" id="equipment_name_frm" name="equipment_name_frm" method="post" onSubmit="return false"><!--form表单在此-->	
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+							<input type="text" id="equipment_name" name="name" class="form-control" maxlength="32" />
+						</div>
+					</div>
+					
+					
+			
+					
+				</form>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+				<button type="button" class="dialog-btn btn-confirm"></button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+			loadJsQueue(["captive_portal"],true);
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,5 @@
+/etc/init.d/dial_up_log
+/usr/bin/link_log
+/usr/bin/pppoe_log.sh
+/usr/bin/dial_up_log
+/etc/udhcpc.user.d/dhcpc_log.sh

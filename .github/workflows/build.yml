@@ -1,0 +1,33 @@
+name: Port Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mock ImmortalWrt Tree
+        run: |
+          mkdir -p openwrt-build/target/linux/mediatek/image
+          mkdir -p openwrt-build/target/linux/mediatek/dts
+          echo "include \$(SUBTARGET).mk" > openwrt-build/target/linux/mediatek/image/filogic.mk
+
+      - name: Run Install Script
+        run: |
+          bash openwrt_port/install_port.sh $(pwd)/openwrt-build
+
+      - name: Verify Installation
+        run: |
+          test -f openwrt-build/target/linux/mediatek/dts/mt7981b-netis-eap930.dts
+          test -f openwrt-build/target/linux/mediatek/image/netis_eap930.mk
+          grep -q "netis_eap930.mk" openwrt-build/target/linux/mediatek/image/filogic.mk
+          test -f openwrt-build/target/linux/mediatek/filogic/base-files/etc/board.d/01_leds
+          test -x openwrt-build/target/linux/mediatek/filogic/base-files/etc/board.d/01_leds
+          test -f openwrt-build/target/linux/mediatek/filogic/base-files/etc/uci-defaults/99-netis-eap930
+          test -x openwrt-build/target/linux/mediatek/filogic/base-files/etc/uci-defaults/99-netis-eap930

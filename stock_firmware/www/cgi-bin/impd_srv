@@ -1,0 +1,28 @@
+#!/bin/sh
+
+function returnerrcode()
+{
+	cat <<- EOF
+		Status: 200 OK
+		Content-type: application/json
+
+		{
+			"jsonrpc": "2.0",
+			"id ": 1,
+			"result": [$1,{"status":"$2"}]
+		}
+	EOF
+	exit 0
+}
+
+
+init=$(uci get auto_ac.auto_ac.para_by 2>/dev/null)
+[ -n "$init" ] && returnerrcode 6 "Permission denied"
+
+killall impd > /dev/null 2>&1
+impd > /dev/null 2>&1 &
+if [ $? -eq 0 ]; then
+	returnerrcode 0 OK
+else
+	returnerrcode 9 "Unknown error"
+fi

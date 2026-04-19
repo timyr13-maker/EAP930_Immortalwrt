@@ -1,0 +1,17 @@
+# OpenWrt Build Artifacts
+.config
+.config.old
+bin/
+build_dir/
+dl/
+feeds/
+logs/
+package/feeds/
+staging_dir/
+tmp/
+
+# OS/IDE
+.vscode/
+.idea/
+.DS_Store
+*.swp

@@ -1,0 +1,5 @@
+
+config routerd 'reboot_timer'
+	option enable '0'
+	option delay '1'
+

@@ -1,0 +1,10 @@
+Package: web
+Version: 1.0-20230526
+Depends: libc
+Source: package/apps/web
+SourceName: web
+Section: Netcore packages
+SourceDateEpoch: 1768811982
+Architecture: aarch64_cortex-a53
+Installed-Size: 3731466
+Description:  This package contains web pages.

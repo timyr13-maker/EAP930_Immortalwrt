@@ -1,0 +1,10 @@
+Package: debug-tools
+Version: 1.0-r0-3f34a7b91
+Depends: libc
+Source: package/apps/debug-tools
+SourceName: debug-tools
+Section: Netcore packages
+SourceDateEpoch: 1667271346
+Architecture: aarch64_cortex-a53
+Installed-Size: 756
+Description:  This package contains debug tools.

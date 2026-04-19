@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>	
+		<script type="text/javascript">
+			removeDir();
+			setPath("index");
+		</script>	
+		<script type="text/javascript"> 
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js" ></script>
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>		
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>	
+     	<style>
+     	.table-sec table{
+			width:95%;
+		}
+		.table-sec .table>thead>tr>th, .table-sec .table>tbody>tr>td { padding-left:20px; white-space:inherit; }
+		#online-list-wrapper {
+			overflow:hidden;
+		}
+		
+		
+		.limit-speed-panel{
+			height:80px;
+			line-height:80px;
+		}
+		.limit-speed-panel i{
+			margin-left:5px;
+			font-style: normal;
+			font-size: 12px;
+		}
+		.limit-speed-panel .limit-tip{
+			 font-size: 12px;
+			 color: #999;
+		}
+		.limit-speed-panel label{
+			line-height:20px;
+			font-weight:normal;
+			margin-bottom:0;
+			font-size:12px;
+		}
+		
+		.ctrl-section{
+			text-align:right;
+			padding-right:15px;
+			margin-left:-40px;
+		}
+		
+		.input-small{
+			width: 80px;
+			padding: 2px 6px;
+			height: 20px;
+			line-height: 14px;
+			font-size: 12px;
+			border: 1px solid #d8d8d8;
+		}
+		
+		.speed-cnt-section{
+			float:left;
+		}
+		.speed-cnt-section span {
+			display:inline;
+			margin-right:15px;
+		}
+		.speed-ctrl-section{
+			float: right;
+			margin-right:15px;
+		}
+		.speed-ctrl-section .cancel-button{
+			font-size: 12px;
+			text-decoration:underline;
+			margin-left:10px;
+			display:inline-block;
+			min-width:64px;
+			text-align:center;
+			padding: 0 7px;
+		}
+		
+		.name-section{
+			/*max-width:240px;*/
+			font-size:16px;
+			padding-left:30px;
+		}
+		
+		#black_list_tab .name-section {
+			padding-left:0;
+		}
+		
+		.name-section.eth{
+			background:url("./images/wired_icon.png") 0 7px no-repeat;
+		}
+		
+		.name-section.wireless_2g{
+			background:url("./images/2_4g_icon.png") 0 7px no-repeat;
+		}
+		
+		.name-section.wireless_5g{
+			background:url("./images/5g_icon.png") 0 7px no-repeat;
+		}
+		
+		.name-section span {
+			display:inline-block;
+			max-width:95%;
+			color:#808080;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			vertical-align:middle;
+			white-space:pre;
+			padding-right: 25px;
+		}
+		
+		.time-section{
+			font-size:12px;
+			color:#999;
+			line-height:1;
+			padding-bottom:20px;
+			padding-left:30px;
+		}
+		
+		#black_list_tab .time-section {
+			padding-left:0;
+		}
+		
+		.ip-section,.mac-section{
+			line-height:26px;
+		}
+		
+		.ip-section .txt,.mac-section .txt{
+			padding-left:5px;
+		}
+		.speed-section{
+			min-width:170px;
+			line-height:26px;
+		}
+		
+		.speed-section .icon{
+			width:7px;
+			height:9px;
+			margin-right:5px;
+			margin-top:7px;
+			display:inline-block;
+		}
+		
+		.speed-up-section .icon{
+			background: url("./images/speed_icon.png") center bottom no-repeat;
+		}
+		.speed-down-section .icon{
+			
+			background: url("./images/speed_icon.png") center top no-repeat;
+		}
+		
+		.table-sec .device_table td:before {
+			display:none;
+		}
+		
+		@media (max-width: 1500px) {
+			.table-sec .table thead tr th{
+				display:none;
+			}
+			
+			.table-sec .table tbody tr td{
+				display:block;
+			}
+			
+			.name-section{
+				padding-top:10px;
+				font-weight:bold;
+			}
+			
+			.name-section.eth{
+				background:url("./images/wired_icon.png") 0 17px no-repeat;
+			}
+			
+			.name-section.wireless_2g{
+				background:url("./images/2_4g_icon.png") 0 17px no-repeat;
+			}
+			
+			.name-section.wireless_5g{
+				background:url("./images/5g_icon.png") 0 17px no-repeat;
+			}
+			
+			
+			.speed-section .icon{
+				display:none;
+			}
+			.time-section{
+				line-height:28px;
+				padding-left:0;
+				padding-bottom:0;
+				position:relative;
+				text-align:right;
+			}
+			.ip-section,.mac-section,.speed-section{
+				font-size:12px;
+				color:#999;
+				line-height:28px;
+				padding-left:6px;
+				position:relative;
+			}
+			.ip-section span:first-child,.mac-section span:first-child,.time-section span,.speed-section span:last-child{
+				position:absolute;
+				left:0;
+				top:0;
+			}
+			.ctrl-section{
+				padding-top:5px;
+				padding-bottom:15px;
+				margin-left:-4px;
+				text-align:left;
+				padding-right:0;
+			}
+			.speed-ctrl-section{
+				float:left;
+				margin-right:0;
+				margin-left:-10px;
+			}
+			.speed-cnt-section span {
+				display:inline-block;
+				line-height:40px;
+			}
+			.limit-speed-panel{
+				height:inherit;
+				line-height:inherit;
+			}
+			.colon { display:none; }
+		}
+		
+		@media (max-width: 576px) {
+			.form-sec,.table-sec {
+				padding:10px 5px;
+			}
+		}
+		@media (max-width: 350px){
+			.add_btn  { padding:6px 8px; }
+		}
+		
+		@media (min-width: 500px){
+			#addModal .modal-dialog { width:600px !important; margin-top:100px; }
+			#addModal .modal-body { padding-bottom:15px; }
+			#addModal .modal-content { position:inherit; width:auto; min-height:inherit;}
+			#addModal .modal-footer { position:inherit; width:auto; }
+		}
+     	</style>
+	</head>
+	<body>
+		<div class="g-wrapper">
+			 <!--头部公用-->   
+			<div id="header"></div>
+		
+		    <!--内容-->
+		    <div class="totalShell_content">
+		    	<div class="f-locationH3-container"></div>
+				<div class="f-content-container">
+				<div class="container-fluid adjust">
+					<div class="row">
+						<div class="col-sm-12 col-md-8 col-md-offset-2">
+							<div class="d-cnt">
+							<div class="f-smallShell"><!--中间内容--> 
+								<div class="f-smallShell-two">
+									<div class="tab_area">
+										<div class="tab-item selection"></div>
+										<div class="tab-item last"></div>
+									</div>
+									<!--上网主机列表-->
+									<div class="infoone marginTop40 ">							
+										<div  class="table-sec nav_device_list">
+											<div class="device-list-wrapper clearfix">
+												<h3 class="online-title"></h3>
+												<!--<span class="slide-icon">收起列表</span>-->
+											</div>
+											<!--内容-->
+											<div id="online-list-wrapper">
+												<table id="online_list_tab" class="table device_table"></table>
+											</div>
+										</div>
+									</div>
+								
+									
+									<!--设备黑名单-->
+									<div class="infoone marginTop40 hidden">	
+										<div  class="table-sec  nav_device_list">
+											<div class="device-list-wrapper clearfix">
+												<h3 class="online-title"></h3>
+												<!--<span class="slide-icon">收起列表</span>-->
+											</div>
+											<!--内容-->
+											<div class="black-list-wrapper">
+												<table id="black_list_tab" class="table device_table"></table>
+											</div>
+										</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+						
+				</div>	 
+		    </div>
+		</div>
+		<div class="modal fade" id="resetModal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body">
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+				<button type="button" class="dialog-btn btn-confirm"></button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<!--提示弹窗-->
+		<div id="lock_div"></div>
+		<div id="message_layer">
+			<div id="msg_type" class="wait"></div>
+			<div id="msg" class="word"></div>
+		</div>
+		
+		<!--修改设备名称弹窗-->
+		<div class="modal fade" id="addModal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body">
+				<form action="javascript:void(0);" id="equipment_name_frm" name="equipment_name_frm" method="post" onSubmit="return false"><!--form表单在此-->	
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+							<input type="text" id="equipment_name" name="name" class="form-control" maxlength="32" />
+						</div>
+					</div>
+					
+					
+			
+					
+				</form>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+				<button type="button" class="dialog-btn btn-confirm"></button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+			
+			loadJsQueue(["networkingEquipment"],true);
+
+		</script>
+	
+	</body>
+</html>

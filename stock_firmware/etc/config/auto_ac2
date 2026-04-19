@@ -1,0 +1,6 @@
+config cfg 'cfg'
+	option only_ac '0'
+	option only_ap '0'
+
+
+

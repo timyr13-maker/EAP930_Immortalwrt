@@ -1,0 +1,11 @@
+Package: net_detect
+Version: 2.8.3-2
+Depends: libc, libblobmsg-json20210516, libubox20210516, libuci20130104, libubus20210630, libnorouter, libjson-c5
+Source: package/apps/net_detect
+SourceName: net_detect
+Section: Netcore packages
+SourceDateEpoch: 1751510577
+Maintainer: CaoZhiwei <caozw@itaochain.com>
+Architecture: all
+Installed-Size: 13457
+Description:  Multiwan script with connection tracking support

@@ -1,0 +1,100 @@
+#!/bin/sh /etc/rc.common
+
+START=19
+USE_PROCD=1
+QUIET=""
+
+validate_firewall_redirect()
+{
+	uci_validate_section firewall redirect "${1}" \
+		'proto:or(uinteger, string)' \
+		'src:string' \
+		'src_ip:cidr' \
+		'src_dport:or(port, portrange)' \
+		'dest:string' \
+		'dest_ip:cidr' \
+		'dest_port:or(port, portrange)' \
+		'target:or("SNAT", "DNAT")'
+}
+
+validate_firewall_rule()
+{
+	uci_validate_section firewall rule "${1}" \
+		'proto:or(uinteger, string)' \
+		'src:string' \
+		'dest:string' \
+		'src_port:or(port, portrange)' \
+		'dest_port:or(port, portrange)' \
+		'target:string'
+}
+
+service_triggers() {
+	procd_add_reload_trigger firewall	
+
+	procd_open_validate
+	validate_firewall_redirect
+	validate_firewall_rule
+	procd_close_validate
+}
+
+restart() {
+	fw3 restart
+}
+
+start_service() {
+	fw3 ${QUIET} start
+}
+
+stop_service() {
+	fw3 flush
+}
+
+reload_service() {
+	fw3 reload
+}
+
+function migrate_old_parameters() {
+	local idx=0
+	local masq
+	local wan
+
+	# get zone wan
+	while true; do
+		name=$(uci get firewall.@zone[$idx].name 2>/dev/null)
+		[ $? -ne 0 ] && return
+		[ "$name" == "wan" ] && break
+		idx=$(($idx + 1))
+	done
+
+	# if old masq doesn't exist, return.
+	masq=$(uci get firewall.@zone[$idx].masq 2>/dev/null)
+	[ $? -ne 0 ] && return
+
+	# delete old masq and mtu_fix
+	uci delete firewall.@zone[$idx].masq
+	uci delete firewall.@zone[$idx].mtu_fix
+
+	# create zone wan* from each internet wan in /etc/config/network.
+	idx=0
+	for wan in $(uci show network | grep "service_type='internet'" | cut -d'.' -f2); do
+		uci batch <<- EOF
+			set firewall.$wan=zone
+			set firewall.$wan.name='$wan'
+			add_list firewall.$wan.network='$wan'
+			set firewall.$wan.input='REJECT'
+			set firewall.$wan.output='ACCEPT'
+			set firewall.$wan.forward='REJECT'
+			set firewall.$wan.masq='$masq'
+			set firewall.$wan.mtu_fix='1'
+		EOF
+	done
+	uci commit firewall
+}
+
+boot() {
+	migrate_old_parameters
+	# Be silent on boot, firewall might be started by hotplug already,
+	# so don't complain in syslog.
+	QUIET=-q
+	start
+}

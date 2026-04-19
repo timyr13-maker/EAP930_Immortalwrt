@@ -1,0 +1,10 @@
+Package: rootfs_ext
+Version: 1.0-20200323
+Depends: libc
+Source: package/apps/rootfs_ext
+SourceName: rootfs_ext
+Section: Netcore packages
+SourceDateEpoch: 1769419339
+Architecture: all
+Installed-Size: 1310
+Description:  A separate partition named rootfs_ext containing customization informations.

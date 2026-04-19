@@ -1,0 +1,12 @@
+/usr/sbin/chilli_query
+/usr/sbin/chilli
+/usr/sbin/chilli_response
+/etc/config/chilli
+/usr/lib/libchilli.so.0.0.0
+/usr/sbin/chilli_opt
+/usr/lib/libbstring.so.0
+/usr/lib/libbstring.so.0.0.0
+/etc/hotplug.d/iface/30-chilli
+/usr/sbin/chilli_radconfig
+/usr/lib/libchilli.so.0
+/etc/chilli.conf

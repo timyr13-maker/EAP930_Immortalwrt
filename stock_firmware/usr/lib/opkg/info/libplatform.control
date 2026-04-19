@@ -1,0 +1,10 @@
+Package: libplatform
+Version: 1.0-20200415
+Depends: libc
+Source: package/apps/platform_hal
+SourceName: libplatform
+Section: Netcore packages
+SourceDateEpoch: 1761027414
+Architecture: all
+Installed-Size: 28847
+Description:  Hardware Adapter Library

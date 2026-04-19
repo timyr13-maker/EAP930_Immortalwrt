@@ -1,0 +1,10 @@
+Package: network_tools
+Version: 1.0-20220410
+Depends: libc, libubox20210516, libuci20130104, libubus20210630, libnorouter, libjson-c5, libblobmsg-json20210516
+Source: package/apps/network_tools
+SourceName: network_tools
+Section: Netcore packages
+SourceDateEpoch: 1724142479
+Architecture: all
+Installed-Size: 7063
+Description:  network tools.

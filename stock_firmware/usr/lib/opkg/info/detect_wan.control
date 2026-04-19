@@ -1,0 +1,10 @@
+Package: detect_wan
+Version: 1.0-20200513
+Depends: libc
+Source: package/apps/detect_wan
+SourceName: detect_wan
+Section: Netcore packages
+SourceDateEpoch: 1666767622
+Architecture: all
+Installed-Size: 8570
+Description:  An application to detect wan type

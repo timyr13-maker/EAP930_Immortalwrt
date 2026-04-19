@@ -1,0 +1,12 @@
+config rpcd
+	option socket /var/run/ubus/ubus.sock
+	option timeout 30
+
+config login
+	option username 'root'
+	option password '$p$root'
+	list read 'unauthenticated'
+	list read 'websuperuser'
+	list write 'unauthenticated'
+	list write 'websuperuser'
+

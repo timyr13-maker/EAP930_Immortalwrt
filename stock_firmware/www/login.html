@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>	
+		<script type="text/javascript">
+			storeApp();
+			setPath("exit");
+		</script>
+		<script type="text/javascript"> 
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='stylesheet' type='text/css' href='css/inside.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='stylesheet' type='text/css' href='css/login.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js" ></script>	
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/publicPlugin/aes.js" ></script>
+		<script type="text/javascript" src="js/publicPlugin/cookie.js"></script>
+	
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>
+		
+	</head>
+	<body>
+		<div class="d-cnt off">
+			<div id="header"></div>
+			<div id="title">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+				<div class="wrapper" >
+					<h1 class="slogan"></h1>
+					<p class="discribe"></p>
+				</div>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,201 100,0 L100,100 0,100 Z" fill="var(--bg-color)"></path></svg>
+			</div>
+			<div id="login-sec">
+				<div id="login-tip-box" class="off">
+					<div class="note-box warning">
+						<div class="wrapper" >
+							<i class="warning icon"></i>
+							<span class="tip-sec"></span>
+						</div>
+					</div>
+				</div>
+				<form id="login_frm" action="javascript:void(0)">
+					<div class="form-group hidden">
+						<label class="input_group_span" for="login_name" id="lbl_name"><img src="images/user_icon.png" /></label>
+						<input type="text" name="login_name" id="login_name" class="form-control" autocomplete="off" size="27" maxlength="31" />
+					</div>
+					<div class="form-group">
+						<label class="input_group_span" for="login_pwd" id="lbl_pwd"><img src="images/lock_icon.png" /></label>
+						<input type="password" name="login_pwd" id="login_pwd" class="form-control" autocomplete="off" size="27" maxlength="63" />
+						
+					</div>
+					<div class="radio radio-info" style="margin-top: -30px;margin-left:10px;position: absolute;">
+								<input type="checkbox" id="read_statement" />
+								<label  class="chk-txt"></label>
+						</div>
+					
+					
+					<div class="form-group marginTop50">
+						<button type="submit" class="btn btn-confirm" onClick="loginIn()"></button>
+					</div>
+					
+				</form>
+				
+			</div>
+			<div id="footer">
+						<p class="txt form-tip"></p>
+						<p class="txt form-tip"></p>
+					</div>
+			</div>
+		</div>
+		
+		
+	
+		
+		
+		<div class="modal fade" id="read_statement_Modal" tabindex="-1">
+									 <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title"></h4>
+										  </div>
+										  <div class="modal-body">
+											<div class="form-group clearfix">
+													<p class="read_statement_p">Software License Agreement
+1. General Provisions
+1.1 The software hereunder refers to:
+(1) The software provided by NETIS SYSTEMS CO., LTD (The term "NETIS " will be used hereinafter) or its licensor to The Product, including routers/switches, offered by NETIS for network communication purposes are collectively referred to in this document, including but not limited to the code stored on the NETIS's Product and other embedded software, documents, graphical user interfaces, content, fonts, and any data; (2) updates or upgrades to (1) above.
+1.2 Unless otherwise agreed, the software hereunder is subject to the Agreement, regardless of whether it is stored in a read-only memory, any other carrier, or other forms, or is downloaded from the website authorized by NETIS .
+2. Use Authorization to End User
+Subject to the terms and conditions of the Agreement, you obtain a limited and non-exclusive license to use the software on a NETIS's Product or a computer, rather than to sell it.
+3. Use Restriction
+3.1 Unless otherwise agreed, you cannot use  NETIS's technologies and intellectual properties to design, develop, manufacture, sell, or license third-party devices, accessories, and development applications and software related to the NETIS's Product and Application software.
+3.2 You may make a software backup on the computer hard disk or other storage media for archival purposes. However, you cannot distribute or provide the software on the network and cause the software to be used by multiple devices or computers at the same time.
+3.3 You cannot sell, rent, lend, sublicense or distribute all or part of the software to third parties without NETIS's written consent. However, you may transfer all the license rights of the software to another party at one time together with the NETIS's Product, provided that  (1) The transfer includes your NETIS's Product and all NETIS's software; (2) You cannot keep all or part of the software backup; (3) The another party who accepts the NETIS's Product and software has read and agreed to the terms of the Agreement.
+3.4 You cannot and agree not to encourage others to copy (except as expressly permitted in the Agreement), reverse engineer, decompile, disassemble or create derivative works.
+3.5 Your use of the software for storage or copying may, in some countries or regions, need to be authorized by the right holder. 
+3.6 You agree to abide by the laws and regulations of the relevant applicable countries or regions when using the software.
+4. Right Reservation
+NETIS and its licensors are the right holders of the software, and reserve any other rights not expressly granted to you by the Agreement.
+5. Use of Non-personal Data
+5.1 You agree that NETIS and its affiliates and agents may collect, maintain, process and use diagnostic, technical, and related information, including but not limited to regularly collecting information about your NETIS's Product, computer, software, and peripherals, in order to provide you with software updates, product support or other services related to the NETIS's software, and to verify the actual performance of the Agreement. NETIS 's use of the above information is only to improve NETIS's products, or to provide services or support to you, without involving your privacy.
+6. Automatic Update or Upgrade
+6.1 You agree that NETIS will automatically update or upgrade the software provided to you by the router, including but not limited to the code and other embedded software, documents, graphical user interfaces, content, fonts and any data stored on the NETIS's Product. The automatic update or upgrade requires connection to the network, and the traffic fee that may be incurred due to the connection will be directly charged by the operator. For details, please consult your operator.
+7. Termination and Survival
+7.1 If you do not comply with the terms or conditions of the Agreement, NETIS or its licensors may terminate the Agreement at any time. After the termination, you must immediately stop using the software and delete the whole software and related materials that have been copied or installed on the NETIS's Product and computer.
+7.2 When the Agreement is terminated, Articles 8, 9, 10, 11, 13 and 14 shall survive.
+8. Limited Guarantee
+8.1 To the maximum extent permitted by applicable laws, the NETIS’s software and the services provided by the NETIS’s software are provided "as is", NETIS and its licensors do not provide any express or implied warranties to all content in the software, including but not limited to guarantees of quality, performance, accuracy, marketability, suitability for a specific purpose, or non-infringement of third-party rights.
+8.2 The installation of the software may affect the availability of third-party software, applications or services. NETIS does not guarantee that the functions or services included in the software will meet your requirements, nor that the software and services will be free from any errors or will provide continuous and lasting services, nor that the software will be compatible with any third-party software or service.
+8.3 The software or service is not applicable to situations where the software or service is faulty or delayed, or the content, data or information provided is incorrect or inaccurate, which may result in personal injury or death or serious environmental damage, including but not limited to operating nuclear energy facilities, aircraft navigation and communication systems, air traffic control systems, life support equipment, or any weapon systems.
+9. Liability Limitation
+9.1 NETIS is not liable for any software use problems caused by accidents, abuse, misuse, or unauthorized modification.
+9.2 NETIS is not liable for compensation of any other incidental, indirect or punitive losses caused by the use of the software, including but not limited to loss of business profits, incapability to send or receive any data, business interruption, loss of information or data, regardless of being based on what kind of liability theory (contract, infringement or others), even if NETIS has been informed of the possibility of such damage.
+9.3 To the maximum extent permitted by applicable laws, NETIS 's maximum liability for the losses you suffer as a result of using the software is limited to the price that you pay for the software.
+10. Technical Support
+Under the Agreement, NETIS provides no technical support services for the software.
+11. Export Control
+You shall abide by applicable export control laws, including but not limited to the export control laws and regulations of the United States, Europe and China regarding the technologies contained in the software.
+12. Notification
+Notifications and correspondences related to the Agreement shall be made in writing and mailed by registered mail or return receipt.
+13. Dispute Settlement and Applicable Laws
+13.1 The Agreement shall be governed by and construed in accordance with the laws of the People’s Republic of China.
+13.2 Any dispute related to the Agreement shall be settled by the Parties through friendly negotiation. If the negotiation fails, the dispute shall be submitted to the Shenzhen Arbitration Commission for arbitration. The arbitration decision shall be final and binding on the Parties. All costs of arbitration shall be borne by the faulty party.
+14. Integrity
+The Agreement and its annex reflect the entire agreement on the software between the Parties hereto, and supersede any and all previous express or implied statements and agreements on the software. The Agreement contains all NETIS 's obligations regarding the software.
+													</p>
+												</div>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" style="width: 100%;" class="dialog-btn btn-agree"></button>
+											
+										  </div>
+										</div>
+									  </div>
+								</div>
+		
+		<script type="text/javascript">
+			current_html = "login";
+			
+			loadJsQueue(["login"]);
+		</script>
+				
+	</body>
+</html>

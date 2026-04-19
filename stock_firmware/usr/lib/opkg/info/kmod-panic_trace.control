@@ -1,0 +1,11 @@
+Package: kmod-panic_trace
+Version: 5.4.246+1.0.0-36
+Depends: kernel (=5.4.246-1-4c9c3fc0b1cb2af88900386b220cabf3), libubox20210516, libuci20130104, libubus20210630, libnorouter
+Source: package/apps/panic_trace
+SourceName: kmod-panic_trace
+License: GPL-2.0-only
+Section: Netcore packages
+SourceDateEpoch: 1768282753
+Architecture: aarch64_cortex-a53
+Installed-Size: 36771
+Description:  panic_trace

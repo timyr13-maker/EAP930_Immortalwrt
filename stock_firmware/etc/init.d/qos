@@ -1,0 +1,133 @@
+#!/bin/sh /etc/rc.common
+START=99
+
+USE_PROCD=1
+NAME=qos
+
+. /lib/functions/network.sh
+QOS_WAN_IFACES="/tmp/qos_wan_ifaces"
+ALL_WAN_IFACE=""
+WAN_NUM_MAX=5
+
+#for standard mode, use tbf+sfq
+function standard_mode_start()
+{
+	local ifb_idx=$1
+	local wan_idx=$((ifb_idx+1))
+	local up=0
+	local down=0
+	local UPRATE=0
+	local DOWNRATE=0
+	local UPRATE_BURST=0
+	local DOWNRATE_BURST=0
+	local wan_iface
+
+	# get up/down rate from uci
+	if [[ ${idx} -eq 0 ]]
+	then
+		up=$(uci get qos.global.up 2>/dev/null)
+		down=$(uci get qos.global.down 2>/dev/null)
+	else
+		up=$(uci get qos.global.wan${wan_idx}_up 2>/dev/null)
+		down=$(uci get qos.global.wan${wan_idx}_down 2>/dev/null)
+	fi
+
+	[[ $up -eq 0 && $down -eq 0 ]] && return
+
+	UPRATE=$(awk "BEGIN {print 0.9*$up}")
+	DOWNRATE=$(awk "BEGIN {print 0.9*$down}")
+	UPRATE_BURST=$(awk "BEGIN {print 11*$UPRATE}")
+	DOWNRATE_BURST=$(awk "BEGIN {print 11*$DOWNRATE}")
+
+	# get wan interface
+	network_get_device wan_iface "wan${wan_idx}"
+	[[ -z ${wan_iface} ]] && return
+
+	if [[ -z ${ALL_WAN_IFACE} ]]
+	then
+		ALL_WAN_IFACE="${wan_iface}"
+	else
+		ALL_WAN_IFACE="${ALL_WAN_IFACE} ${wan_iface}"
+	fi
+	ip link set dev ifb${ifb_idx} up
+
+	#upload
+	if [[ $up -gt 0 ]]
+	then
+		tc qdisc add dev $wan_iface handle 10: root tbf rate ${UPRATE}mbit burst ${UPRATE_BURST}kb latency 50ms
+		tc qdisc add dev $wan_iface parent 10:1 handle 100: sfq
+	fi
+
+	#download
+	if [[ $down -gt 0 ]]
+	then
+		tc qdisc add dev $wan_iface handle ffff: ingress
+		tc filter add dev $wan_iface parent ffff: protocol ip u32 match u32 0 0 action mirred egress redirect dev ifb${ifb_idx}
+		tc qdisc add dev ifb${ifb_idx} handle 10: root tbf rate ${DOWNRATE}mbit burst ${DOWNRATE_BURST}kb latency 50ms
+		tc qdisc add dev ifb${ifb_idx} parent 10:1 handle 100: sfq
+	fi
+}
+
+function qos_start()
+{
+	local idx=0
+
+	lsmod | grep ifb && rmmod ifb
+
+	insmod ifb numifbs=${WAN_NUM_MAX}
+
+	while [ ${idx} -lt ${WAN_NUM_MAX} ]
+	do
+		standard_mode_start ${idx}
+		let idx++
+	done
+
+	echo "${ALL_WAN_IFACE}" > ${QOS_WAN_IFACES}	
+
+	echo "qos is running."
+}
+
+function qos_stop()
+{
+	local iface
+	local idx=0
+	local old_wan_ifaces=$(cat ${QOS_WAN_IFACES} 2> /dev/null)
+
+	for iface in ${old_wan_ifaces}
+	do
+		tc qdisc del dev $iface handle 10: root 2>/dev/null
+		tc qdisc del dev $iface handle ffff: ingress 2>/dev/null
+	done
+
+	while [ ${idx} -lt ${WAN_NUM_MAX} ]
+	do
+		ip link set dev ifb${idx} down 2>/dev/null
+		let idx++
+	done
+	rmmod ifb 2>/dev/null
+	echo "qos is stopped."
+}
+
+
+start_service() {
+	local enable=$(uci get qos.global.enable || echo 0)
+	if [ "$enable" == "0" ]; then
+		qos_stop
+	else
+		qos_start
+	fi
+}
+
+service_triggers() {
+	procd_add_reload_trigger "qos"
+	procd_add_raw_trigger "interface.*" 2000 /etc/init.d/qos reload
+}
+
+stop_service() {                                            
+        qos_stop                                            
+}
+
+reload_service() {
+	restart
+}
+

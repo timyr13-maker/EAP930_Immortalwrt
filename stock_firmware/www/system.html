@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>
+		<script type="text/javascript">
+			removeDir();
+			setPath("index");
+		</script>
+		<script type="text/javascript">
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='stylesheet' type='text/css' href='css/inside.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js"></script>	
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>
+		<style>
+			.g-wrapper { position:absolute; left:0; top:0; width:100%; height:100%; }
+			.inner-ring {
+				background:#f1f4f6;
+			}
+			.item{line-height: 18px;}
+			.btn-sec {
+				position:absolute;
+				left:0;
+				width:100%;
+				bottom:95px;
+			}
+			
+			
+			.g-wrapper.isApp .container-list{
+				margin-top:20px;
+			}
+			
+			.g-wrapper.isApp .btn-sec {
+				bottom:75px;
+			}
+			
+			/*.container-list{
+				margin-top:95px;
+				margin-left:0;
+				margin-right:0;
+			}*/
+			
+			.listview {
+				/*display: block;*/
+				padding: 0;
+				margin: 10px 0 0 0;
+				background: #fff;
+				line-height: 18px;
+				overflow: hidden;
+				border: 0;
+				border-radius: 10px;
+				-webkit-box-shadow: 0px 0px 5px 0px rgb(148 169 196 / 28%);
+    			box-shadow: 0px 0px 5px 0px rgb(148 169 196 / 28%);
+			}
+			.listview>div,.image-listview>div .item {
+				padding: 11px 16px;
+				position: relative;
+				min-height: 50px;
+				width: 100%;
+			}
+			
+			.listview>div:after {
+				content: "";
+				display: block;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 1px;
+				background: #e7eaf3
+			}
+			
+			.listview>div:last-child:after {
+				display: none
+			}
+			
+			.image-listview>div {
+				padding: 0;
+				min-height: auto;
+				
+			}
+			
+			.image-listview>div:after {
+				left: 68px
+			}
+
+			.image-listview>div .item .icon-box {
+				width: 36px;
+				height: 36px;
+				line-height: 22px;
+				font-size: 22px;
+				border-radius: 50%;
+				margin-right: 16px;
+				position:absolute;
+				left:16px;
+				top:11px;
+			}
+			
+			.image-listview>div .item .icon-box img {
+				width:100%;
+			}
+			
+			.image-listview>div .item .in {
+				margin-left:52px;
+				line-height:36px;
+				font-size:16px;
+				color:#333;
+			}
+			
+			.listview>div.has-arrow:after {
+				width: 20px;
+				height: 20px;
+				font-weight: 700;
+				left:inherit;
+				right: 10px;
+				color: #A9ABAD;
+				line-height: 1em;
+				transition: 0s all;
+				height: 18px;
+				top: 50%;
+				opacity: .25;
+				margin-top: -9px;
+				transform: rotate(90deg);
+			}
+			
+			.listview>div.has-arrow span.text {
+				color:#999;
+				position:absolute;
+				right:35px;
+				top:20px;
+			}
+			
+			.listview>div.collapse {
+				display:none;
+			}
+			.listview>div.collapse.in{
+				display:block;
+			}
+			
+			
+			.action-button-list {
+				padding: 0;
+				margin: 0
+			}
+			
+			.action-button-list>li {
+				padding: 0;
+				width: 100%;
+				min-height: 50px;
+				line-height: 30px;
+				padding: 10px 16px;
+				text-indent:52px;
+				display: block
+			}
+			
+			.action-button-list>li.active {
+				background:#ebf5ff;
+			}
+
+			
+			.form-group .btn {
+				width: 100%;
+				height: 45px;
+				background: #409EFF;
+				color: #fff;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="g-wrapper">
+			<div id="header"></div>
+			<div class="container-list">	
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2" id="system-sec">
+							
+						</div>
+						<div class="listview image-listview off" id="accordionParent">
+							
+								<div class="has-arrow accordion-button collapsed" data-toggle="collapse" data-target="#accordion">
+									<div class="item">
+										<div class="icon-box">
+											<img src="images/switch_language.png" />
+										</div>
+										<div class="in"></div>
+										<span class="text" id="curLanguage"></span>
+									</div>
+								</div>
+								<div id="accordion" class="accordion-collapse collapse" data-parent="#accordionParent">
+									<div class="accordion-body">
+										<ul class="action-button-list">
+										</ul>
+									</div>
+								</div>
+							</div>
+						
+						
+							<!--<div class="form-group marginTop20" style=" padding-bottom: 30px;">
+								<button type="button" class="btn btn-exit"></button>
+							</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			loadJsQueue(["system"]);
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+#!/bin/sh
+# Board-specific LED configuration for OpenWrt
+# Netis EAP930
+#
+# Physical LEDs:
+#   blue:status  - GPIO 6, ACTIVE HIGH, default ON  (normal operation)
+#   red:status   - GPIO 7, ACTIVE HIGH, default OFF (error / failsafe)
+
+. /lib/functions/leds.sh
+
+board=$(board_name)
+
+case "$board" in
+netis,eap930)
+	ucidef_set_led_default "blue" "blue:status" "blue:status" "1"
+	;;
+esac

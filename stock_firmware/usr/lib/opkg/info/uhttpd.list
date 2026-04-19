@@ -1,0 +1,5 @@
+/etc/uhttpd.key
+/usr/sbin/uhttpd
+/etc/init.d/uhttpd
+/etc/config/uhttpd
+/etc/uhttpd.crt

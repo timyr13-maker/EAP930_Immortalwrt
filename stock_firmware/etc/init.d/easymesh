@@ -1,0 +1,124 @@
+#!/bin/sh /etc/rc.common
+
+START=21
+USE_PROCD=1
+
+EXTRA_COMMANDS=lan_dhcpc_rule
+EXTRA_HELP="    lan_dhcpc_rule refresh lan dhcpc rules."
+
+source /lib/functions/hal_common.sh
+
+lan_dhcpc_rule() {
+	local port
+	local init=$(uci get system.@system[0].initialized 2>/dev/null)
+
+	if [ "$init" == "1" ]; then
+		ebtables -D OUTPUT -j lan_dhcpc_rule
+		ebtables -X lan_dhcpc_rule
+		return
+	fi
+
+	ebtables -N lan_dhcpc_rule || return
+	ebtables -A OUTPUT -j lan_dhcpc_rule
+	for port in $(uci get network.dev_lan.ports); do
+		ebtables -I lan_dhcpc_rule -o $port -p IPv4 --ip-proto udp --ip-dport 67 -j DROP
+	done
+}
+
+mac_set_local_flag() {
+	local macstr=$1
+	local first_octet=${macstr:0:2}
+
+	let byte=0x$first_octet
+	let "byte=byte+2"
+
+	str=`printf "%02x" $byte`
+	mstr=${str:0-2}
+
+	echo -n $mstr${macstr:2}
+}
+
+# get lan mac, if failed, generate a random mac.
+get_lan_mac() {
+	local f
+	uci get network.dev_lan.macaddr ||
+	 cat /sys/class/net/br-lan/address ||
+	 for f in $(uci get network.dev_lan.ports); do cat /sys/class/net/${f}/address && break; done || {
+	  echo -n "00"; hexdump -e '/1 ":%02x"' -n 5 /dev/urandom
+	 }
+}
+
+#check ra0 and lan mac same, if successful, generate a random mac.
+get_need_lan_mac() {
+	local lan_mac=$(echo $(get_lan_mac) | tr [A-Z] [a-z])
+	local ra_mac=$(echo $(impd readmac_wlan0) | tr [A-Z] [a-z])
+	if [ "$lan_mac" != "$ra_mac" ]; then
+		echo "$lan_mac"
+	else
+		echo -n "00"; hexdump -e '/1 ":%02x"' -n 5 /dev/urandom
+	fi
+}
+
+modify_lan_mac() {
+	local lan_mac=$(mac_set_local_flag $(get_need_lan_mac))
+	local lan_iface=$(for f in $(uci get network.dev_lan.ports); do [ "${f:0:3}" == "lan" ] && echo -n "${f} "; done)
+	local first_three_octets=${lan_mac:0:9}
+	local last_two_octets=${lan_mac:11}
+	local modified_octet=${lan_mac:9:2}
+	let mac=0x$modified_octet
+
+	for lan_per_iface in $lan_iface; do
+		[ -d /sys/class/net/$lan_per_iface ] && {
+			let "mac=mac+16"
+			mac_str=`printf "%02x" $mac`
+			m_str=${mac_str:0-2}
+			ifconfig $lan_per_iface down
+			ifconfig $lan_per_iface hw ether $first_three_octets$m_str$last_two_octets
+			ifconfig $lan_per_iface up
+			echo modify $lan_per_iface mac $first_three_octets$m_str$last_two_octets &> /dev/console
+			lanmac_str=`printf "%s_macaddr" $lan_per_iface`
+			uci set "network.dev_lan.$lanmac_str=$first_three_octets$m_str$last_two_octets" 
+			uci commit network
+		}
+	done
+}
+
+boot() {
+    modify_lan_mac
+}
+
+start_service() {
+	local DeviceRole=$(datconf -f /etc/map/mapd_user.cfg get DeviceRole)
+
+	lan_dhcpc_rule
+	if is_bridge_config; then
+		/usr/bin/EasyMesh_openwrt.sh 0 1
+	elif [ "$DeviceRole" == "1" ]; then
+		/usr/bin/EasyMesh_openwrt.sh
+	else
+		/usr/bin/EasyMesh_openwrt.sh 0 1
+	fi
+}
+
+reload_service() {
+	local MapMode=$(datconf -f /etc/map/mapd_user.cfg get MapMode)
+	[ -n "$MapMode" ] && [ "$MapMode" != "0" ] && start
+}
+
+stop_service() {
+	local meshd_pid=$(cat /var/run/meshd.pid)
+	if [ -n "$meshd_pid" ]; then
+		ps | grep -v grep | grep meshd | grep $meshd_pid >/dev/null
+		if [ $? -eq 0 ]; then
+			kill -9 $meshd_pid
+		fi
+	fi
+	killall mapd wapp p1905_managerd bs20
+	sleep 1
+	rmmod mapfilter
+}
+
+service_triggers() {
+	procd_add_reload_trigger mtkmesh
+	procd_add_config_trigger "config.change" "system" /etc/init.d/easymesh lan_dhcpc_rule
+}

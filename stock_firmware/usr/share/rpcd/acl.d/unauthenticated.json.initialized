@@ -1,0 +1,25 @@
+{
+	"unauthenticated": {
+		"description": "Access controls for unauthenticated requests",
+		"read": {
+			"ubus": {
+				"routerd":["param_status", "get_language", "login_name_get", "app_info", "info"],
+				"session": ["access", "login"],
+				"acap":["ac_ap_status"],
+				"rkey.session":["login"],
+				"uci": ["get"],
+				"rkey":["get_rand_key"],
+				"ahsapd.basic":["getSystemInfo"],
+				"ahsapd.uplink":["getUplinkInfo"],
+				"net_detect":["net_detect_check"]
+			},
+			"uci": ["customer"]
+		},
+		"write": {
+                        "ubus": {
+                                "routerd":["set_language"],
+                                "wifi":["set_backhaul"]
+                        }
+                }
+	}
+}

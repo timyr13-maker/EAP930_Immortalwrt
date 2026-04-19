@@ -1,0 +1,15 @@
+Package: sshpass
+Version: 1.09-1
+Depends: libc
+Source: feeds/packages/utils/sshpass
+SourceName: sshpass
+License: GPL-2.0-or-later
+LicenseFiles: COPYING
+Section: utils
+SourceDateEpoch: 1663057122
+Maintainer: Josef Schlehofer <josef.schlehofer@nic.cz>
+Architecture: aarch64_cortex-a53
+Installed-Size: 5133
+Description:  Sshpass is a tool for non-interactively performing password authentication
+ with SSH's so-called "interactive keyboard password authentication". Most user
+ should use SSH's more secure public-key authentication instead.

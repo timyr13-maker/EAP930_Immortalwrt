@@ -1,0 +1,11 @@
+Package: kmod-nf-nat
+Version: 5.4.246-1
+Depends: kernel (=5.4.246-1-4c9c3fc0b1cb2af88900386b220cabf3), kmod-nf-conntrack
+Source: package/kernel/linux
+SourceName: kmod-nf-nat
+License: GPL-2.0
+Section: kernel
+SourceDateEpoch: 1719383519
+Architecture: aarch64_cortex-a53
+Installed-Size: 16069
+Description:  Netfilter NAT

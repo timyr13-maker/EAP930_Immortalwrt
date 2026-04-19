@@ -1,0 +1,11 @@
+Package: kmod-netinfo
+Version: 5.4.246+1.0.0-6
+Depends: kernel (=5.4.246-1-4c9c3fc0b1cb2af88900386b220cabf3)
+Source: package/apps/netinfo
+SourceName: kmod-netinfo
+License: GPL-2.0-only
+Section: Netcore packages
+SourceDateEpoch: 1718866327
+Architecture: aarch64_cortex-a53
+Installed-Size: 8930
+Description:  netinfo

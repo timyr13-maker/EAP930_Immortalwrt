@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, viewport-fit=cover">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="format-detection" content="telephone=no"/>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/publicPlugin/app.js"></script>	
+		<script type="text/javascript">
+			if(isApp().app){
+				storeApp();
+				removeDir();
+				setPath("exit");
+				setAppParam();
+			}else{
+				removeDir();
+				setPath("index");
+			}
+		</script>	
+		<script type="text/javascript"> 
+			document.write("<link rel='stylesheet' type='text/css' href='css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+		</script>
+		<script type="text/javascript" src="js/publicPlugin/jquery.min.js" ></script>
+		<script type="text/javascript" src="js/publicPlugin/bootstrap.min.js"></script>	
+			<script type="text/javascript" src="js/publicPlugin/jquery.form.js"></script>
+		<script type="text/javascript"> 
+			document.write('<script src="js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+			document.close();
+		</script>	
+		<style>
+			#ls_ac,#ls_mac{min-width: 150px;display: inline-block;text-align: left;margin-left: 10px;}
+			#ls_ac{    cursor: pointer;color: var(--blue-12);}
+			.txt_left{   text-align:right;display: inline-block;}
+			#factory_settings,#system_upgrade{cursor: pointer;}
+			.input-group-btn .file-btn {height:36px;width:auto;min-width:inherit;color:#535353;padding:6px 15px;font-size:14px;background:#f5f5f5;border:1px solid #ccc;}
+		</style>
+	</head>
+	<body >
+		
+		<div class="g-wrapper">
+			<div class="d-cnt off">
+<div id="header"></div>
+
+			<div id="info-panel">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="panel-box clearfix" style="padding: 30px 5%;">
+								<div class="panel-box-top clearfix">
+									<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 icon-sec">
+										<a  href="javascript:void(0);"><img src="./images/lock_screen1.png"></a>
+										<p id="lock_screen_title" class="icon-describe bander_txt f-size20" style="color: #05c9b1;"></p>
+									</div>
+									<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 icon-sec">
+										
+											<span class="ix_online_quantity bander_txt f-size20"></span>
+											<span class="ix_online_quantity_number f-size90">1</span>
+									
+										
+									</div>
+									<div class="col-xs-12 col-sm-1 col-md-1 col-lg-1"></div>
+									<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 marginTop30 text-left">
+										<div class="ls_top">
+											<span class="bander_txt" ></span>
+											<span id="ls_time"></span>
+										</div>
+										<div class="ls_top">
+											<span class="bander_txt"></span>
+											<span id="run-time-val"></span>
+											<span id="run-time-unit"></span>
+										</div>
+										<div class="ls_top">
+											<span class="bander_txt"></span>
+											<span id="ls_cpu"></span>
+										</div>
+										<div class="ls_top">
+											<span class="bander_txt"></span>
+											<span id="ls_memory"></span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="panel-box-buttom clearfix marginTop20">
+									
+									<div class="ls_panel-box text-left col-xs-12 col-sm-7 col-md-7 col-lg-7">
+										<span class="bander_txt"></span>
+										<span id="version_information"></span>
+									</div>
+									<div class="ls_panel-box text-left col-xs-12 col-sm-5 col-md-5 col-lg-5">
+										<span class="bander_txt"></span>
+										<span id="equipment_mac"></span>
+									</div>
+								</div>
+								
+							</div>
+						
+					
+					
+					<div class="clearfix ls_button marginTop50">
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+							<div class="menu-item-div clearfix">
+								<div class="ls_button_img">
+									<img src="images/lock_screen2.png">
+								</div>
+								<div class="ls_button_content">
+									<p class="text-center text_bt"></p>
+									<span class="marginTop10 text_bt"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+							<div class="menu-item-div clearfix">
+								<div class="ls_button_img">
+									<img src="images/lock_screen3.png">
+								</div>
+								<div class="ls_button_content">
+									<p class="text-center text_bt"></p>
+									<span class="marginTop10 text_bt"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+						
+							<div class="menu-item-div clearfix ls_ac">
+								<p class=" marginTop30">
+									<span class="text_bt txt_left"></span>
+									<a target="_blank" id="ls_ac"></a>
+								</p>
+								<p class=" marginTop10">
+									<span class="text_bt txt_left"></span>
+									<span id="ls_mac"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="clearfix ls_button marginTop10">
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+							<div class="menu-item-div clearfix" id="system_upgrade" onclick="upgrade_show();">
+								<div class="ls_button_img">
+									<img src="images/system_upgrade.png">
+								</div>
+								<div class="ls_button_content">
+									<p class="text-center text_bt"></p>
+									<span class="marginTop10 text_bt"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+							<div class="menu-item-div clearfix" id="factory_settings" onclick="initialization_show()">
+								<div class="ls_button_img">
+									<img src="images/factory_settings.png">
+								</div>
+								<div class="ls_button_content">
+									<p class="text-center text_bt"></p>
+									<span class="marginTop10 text_bt"></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ls_module-sec">
+						
+							<div class="menu-item-div clearfix" id="captive_portal" style="cursor: pointer;">
+								<div class="ls_button_img">
+									<img src="images/captive_portal.png">
+								</div>
+								<div class="ls_button_content">
+									<p class="text-center text_bt"></p>
+									<span class="marginTop10 text_bt"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+					<div class="ls_module-sec">
+						<p class="p_txt"></p>
+					</div>
+					
+				</div>
+			
+			</div></div>
+			
+		</div>
+		<!--һ�����֣������ɹ�������ʾ���û���ֹ����-->
+		<div class="fullScreenMask hidden"></div>
+		<div class="infoone hidden">
+			<div class="countdown-sec">
+				<img width="120" src="./images/turn.gif" />
+				<div id="time">160</div>
+			</div>	
+			<p class="countdown-tip" id="reset_tip"></p>
+		</div>
+		
+		<!-- ���� -->
+		<div class="modal fade" id="upgrade_Modal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body" style="padding: 0;">
+				  <div class="tab_area">
+				  	<div class="tab-item selection"></div>
+				  	<div class="tab-item last"></div>
+				  </div>
+				  
+				<form id="update_form" class="form-area update_form manual_upgrade marginTop30" action="" method="post" enctype="multipart/form-data">
+					
+					<!-- 手动升级 -->
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 ccol-sm-8 col-md-8 col-lg-7 f-control">
+							<div class="input-group">
+								<input type="text" class="form-control" id="update_file_name" readonly onclick="get_file();">
+								<span class="input-group-btn">
+									<label class="btn file-btn" for="put_file">
+										<input id="put_file" name="file1" type="file" style="display:none;" onChange="put_fileFn()">
+										<span class="view"></span>
+									</label>
+								</span>
+							</div>
+						</div>
+					</div>
+					</form>
+					<!-- 自动升级 -->
+					<div class="auto_update update_form hidden marginTop30">
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 ccol-sm-8 col-md-8 col-lg-7 f-control">
+							<input type="checkbox" class="hidden checkboxAll" id="auto_update_checkbox" name="speed_limit" value="1" checked="checked">
+							<div class="button-label  marginTop10 enable_click f-switchTrue auto_update_checkbox">
+								<span class="circle"></span>
+								<span class="text on">ON</span>
+								<span class="text off">OFF</span>
+						   </div>
+						   <p class="tipsText marginTop10"></p>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 ccol-sm-8 col-md-8 col-lg-7 f-control" id="span_cur_version">
+							<span class="version-status"></span>
+							<span class="cur_version"></span>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix hidden" id="span_new_version_div">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 "></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+							<span class="version-status"></span>
+							<span id="span_new_version" class="marginLeft5"></span></div>
+					</div>
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 "></label>	
+						<div class=" col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control " id="update_status"> </div>
+					</div>
+					<div class="form-group clearfix marginTop20">
+							<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 "></label>
+							<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+								<button type="button" class="btn  button-version-checking" id="check_btn" onclick="version_check_button()"></button>
+								<button type="button" class="btn  button-automatic-upgrade hidden" id="update_btn" onclick="start_update()"></button>
+							</div>
+					</div>
+					</div>
+				
+			  </div>
+			  <div class="modal-footer">
+				  <div class="update_form manual_upgrade ">
+					  <button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+					  <button type="button" class="dialog-btn btn-confirm" onclick="two_confirmation();"></button>
+				  </div>
+				<!-- <div class="update_form auto_update hidden"> 
+					<button type="button" class="dialog-btn  button-version-checking" id="check_btn" onclick="version_check_button()"></button>
+					<button type="button" class="dialog-btn  button-automatic-upgrade hidden" id="update_btn" onclick="start_update()"></button>
+				</div> -->
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		
+		<!-- ��ʼ�� -->
+		<div class="modal fade" id="initialization_Modal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body">
+				<form id="reset_frm" name="reset_frm" onsubmit="return false">
+					
+					<div class="modal-body">
+							<p class="single-tip"></p>
+					</div>
+					
+					
+					
+				</form>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="dialog-btn btn-cancel" data-dismiss="modal"></button>
+				<button type="button" class="dialog-btn btn-confirm" onclick="reset_confirm();"></button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		<!-- captive portal -->
+		<div class="modal fade" id="captive_portal_Modal" tabindex="-1">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"></h4>
+			  </div>
+			  <div class="modal-body">
+				<form class="form_captive_portal marginTop50" name="form_captive_portal" method="post" >
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+							<span id="captive_portal_enable" style="line-height: 35px;"> </span>
+						</div>
+					</div>
+					<div id="captive_portal_show" class="hidden">
+						
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control coverSelect">
+							<span id="isp" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					
+						<div class="form-group clearfix">
+							<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+							<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+								
+								<span id="nasid" style="line-height: 35px;"></span>
+							</div>
+						</div>
+					
+					
+					<div id="wifisystem_show" >
+						
+						
+						<div class="form-group clearfix">
+							<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+							<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+								<span id="password" style="line-height: 35px;"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							<div class="checkbox2 marginTop5">
+								<input type="checkbox" class="checkboxShall " id="checkboxShall_0" idx="0" value="0">
+									<label class="checkbox_lb f-label-title"></label>
+								<input type="checkbox" class="checkboxShall " id="checkboxShall_1" disabled value="0">
+									<label class="checkbox_lb f-label-title"></label>
+								<input type="checkbox" class="checkboxShall hidden" id="checkboxShall_2" disabled value="0">
+									<label class="checkbox_lb f-label-title hidden"></label>
+									<input type="checkbox" class="checkboxShall hidden" id="checkboxShall_3" disabled value="0">
+										<label class="checkbox_lb f-label-title hidden"></label>
+									<span id="lan_PortStr" style="margin-left: 17px; hidden">
+										<input type="checkbox" class="checkboxShall hidden" id="checkboxShall_4" disabled idx="4" value="0">
+										<label class="checkbox_lb f-label-title hidden">LAN1</label>
+									</span>
+							</div>
+						</div>
+					</div>
+					<div id="nas_manual" class="hidden"> 
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label">Local Network</label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+							<span id="local_network" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label">UAM Server</label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+							<span id="uam_server" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label">RADIUS server 1</label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+							<span id="radius_server1" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label">RADIUS NAS ID</label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+							<span id="radius_nas_id" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					<div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5 f-label">Preferred DNS</label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control ">
+							
+							<span id="preferred_dns" style="line-height: 35px;"></span>
+						</div>
+					</div>
+					
+					</div>
+					</div>
+					<!-- <div class="form-group clearfix">
+						<label class="col-xs-6 col-sm-4 col-md-4 col-lg-5"></label>
+						<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+							<button type="button" class="btn btn-save"></button>
+						</div>
+					</div> -->
+				</form>
+			  </div>
+			  <div class="modal-footer ">
+				<button type="button" class="dialog-btn btn-close" style="width: 100%;" data-dismiss="modal"></button>
+				<button type="button" class="dialog-btn btn-confirm hidden" ></button>
+			  </div>
+			</div>
+		  </div>
+		</div>	
+	<script type="text/javascript">
+		loadJsQueue(["lock_screen"],true);
+		
+	</script>
+	</body>
+</html>

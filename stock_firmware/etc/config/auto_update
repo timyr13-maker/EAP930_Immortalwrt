@@ -1,0 +1,5 @@
+
+config auto_update 'control'
+	option agent_enable '0'
+	option allow '0'
+

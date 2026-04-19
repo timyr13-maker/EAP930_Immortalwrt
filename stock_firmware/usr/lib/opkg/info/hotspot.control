@@ -1,0 +1,10 @@
+Package: hotspot
+Version: 1.0-20221223
+Depends: libc, libubox20210516, libblobmsg-json20210516, libuci20130104, libubus20210630, coova-chilli, libopenssl1.1, libnorouter
+Source: package/apps/hotspot
+SourceName: hotspot
+Section: Netcore packages
+SourceDateEpoch: 1767148661
+Architecture: all
+Installed-Size: 86084
+Description:  hotspot

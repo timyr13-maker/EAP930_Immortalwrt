@@ -1,0 +1,44 @@
+#!/bin/sh
+
+#. /lib/functions.sh
+. /usr/share/libubox/jshn.sh
+
+main () {
+	case "$1" in
+		list)
+			json_init
+			json_add_object "scan"
+			json_add_string "band" "x"
+			json_add_string "get"
+			json_close_object
+			json_add_object "get_device_role"
+			json_close_object
+			json_add_object "trigger_multi_ap_on_boarding"
+			json_close_object
+			json_add_object "trigger_multi_ap_on_boarding_lower"
+			json_close_object
+			json_add_object "map_cfg"
+			json_close_object
+			json_add_object "get_map_cfg"
+			json_close_object
+			json_add_object "set_backhaul"
+			json_close_object
+			json_add_object "agent_onboarding"
+			json_close_object
+			json_add_object "get_runtime_topology"
+			json_close_object
+			json_add_object "get_raw_topology"
+			json_close_object
+			json_add_object "get_al_mac"
+			json_close_object
+			json_add_object "get_apply_status"
+			json_close_object
+			json_dump
+			;;
+		call)
+			applywifi.lua $2
+			;;
+	esac
+}
+
+main "$@"

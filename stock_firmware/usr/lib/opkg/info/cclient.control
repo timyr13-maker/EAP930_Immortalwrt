@@ -1,0 +1,10 @@
+Package: cclient
+Version: 1.0-20200724
+Depends: libc, libblobmsg-json20210516, libubox20210516, libuci20130104, libubus20210630, libnorouter, libopenssl1.1
+Source: package/apps/cclient
+SourceName: cclient
+Section: Netcore packages
+SourceDateEpoch: 1756347067
+Architecture: all
+Installed-Size: 66548
+Description:  Router cclient

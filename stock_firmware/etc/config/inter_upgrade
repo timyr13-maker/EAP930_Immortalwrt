@@ -1,0 +1,13 @@
+config config 'default'
+	option loglevel '4'
+	option role '2'
+	option autoupgrade '1'
+
+config config 'interval'
+	option check '30'
+	option beacon '30'
+	option version '600'
+	option noupgrade '36000'
+	option start '10800'
+	option end '18000'
+

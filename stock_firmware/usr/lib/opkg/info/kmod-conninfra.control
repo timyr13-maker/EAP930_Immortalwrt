@@ -1,0 +1,11 @@
+Package: kmod-conninfra
+Version: 5.4.246-1
+Depends: kernel (=5.4.246-1-4c9c3fc0b1cb2af88900386b220cabf3)
+Source: package/mtk/drivers/connectivity/conninfra
+SourceName: kmod-conninfra
+Section: kernel
+SourceDateEpoch: 1719383519
+Maintainer: Kun-Ze Syue<kun-ze.syue@mediatek.com>
+Architecture: aarch64_cortex-a53
+Installed-Size: 46302
+Description:  Support for connectivity conninfra driver.

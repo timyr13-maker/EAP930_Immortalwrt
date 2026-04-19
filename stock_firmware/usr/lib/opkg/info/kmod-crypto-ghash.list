@@ -1,0 +1,2 @@
+/lib/modules/5.4.246/ghash-generic.ko
+/etc/modules.d/09-crypto-ghash

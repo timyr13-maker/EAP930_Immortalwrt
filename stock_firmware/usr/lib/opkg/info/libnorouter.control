@@ -1,0 +1,10 @@
+Package: libnorouter
+Version: 1.0-20200323
+Depends: libc, libubox20210516, libubus20210630, libuci20130104
+Source: package/apps/libnorouter
+SourceName: libnorouter
+Section: Netcore packages
+SourceDateEpoch: 1744685508
+Architecture: all
+Installed-Size: 28672
+Description:  Netcore basic share lib

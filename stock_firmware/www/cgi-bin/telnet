@@ -1,0 +1,52 @@
+#!/bin/sh
+
+. /usr/share/libubox/jshn.sh
+
+#handle query string
+QUERY_STRING=$(printf $(echo -n "$QUERY_STRING" | sed 's/\\/\\\\/g;s/\(%\)\([0-9a-fA-F][0-9a-fA-F]\)/\\x\2/g'))
+while [ true ]; do
+	param=${QUERY_STRING%%&*}
+	QUERY_STRING=${QUERY_STRING#*&}
+	val=${param#*=}
+	key=${param%%=*}
+	key="${key//[^a-zA-Z0-9_]/_}"
+	eval "${key}=$(echo -n '${val}')"
+	if [ "$param" = "$QUERY_STRING" ] || [ ${#param} -le 0 ]; then
+		break
+	fi
+done
+
+json_init
+json_add_string "username" "$user"
+json_add_string "password" "$pwd"
+json_add_int "timeout" 1
+
+ubus call session login "$(json_dump)" &> /dev/null
+if [ $? -eq 0 ]; then
+	if [ $enable == "true" ]; then
+		/etc/init.d/telnet start &> /dev/null
+		content="Open telnet successfully!"
+	else
+		/etc/init.d/telnet stop &> /dev/null
+		content="close telnet successfully!"
+	fi
+else
+	if [ $enable == "true" ]; then
+		content="Failed to open telnet!"
+	else
+		content="Failed to close telnet!"
+	fi
+fi
+
+cat << EOF
+Status: 200 OK
+Content-type: html
+
+<html>
+	<head>
+		<title>telnet</title>
+	</head>
+	$content
+</html>
+EOF
+

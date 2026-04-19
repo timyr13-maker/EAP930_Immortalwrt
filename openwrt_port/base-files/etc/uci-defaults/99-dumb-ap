@@ -1,0 +1,31 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+board_config_load
+board=$(board_name)
+
+# Only apply to Netis EAP930
+[ "$board" = "netis,eap930" ] || exit 0
+
+# Set LAN interface to DHCP client
+uci set network.lan.proto='dhcp'
+
+# Remove default static IP addresses
+uci delete network.lan.ipaddr
+uci delete network.lan.netmask
+uci delete network.lan.ip6assign
+
+# Disable DHCP server on LAN
+uci set dhcp.lan.ignore='1'
+
+# Disable IPv6 RA and DHCPv6 server - let the upstream router manage IPv6
+uci set dhcp.lan.ra='disabled'
+uci set dhcp.lan.dhcpv6='disabled'
+uci set dhcp.lan.ndp='disabled'
+
+# Commit changes
+uci commit network
+uci commit dhcp
+
+exit 0

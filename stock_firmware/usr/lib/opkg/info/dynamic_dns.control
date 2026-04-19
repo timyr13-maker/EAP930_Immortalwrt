@@ -1,0 +1,10 @@
+Package: dynamic_dns
+Version: 1.0-20200415
+Depends: libc, libubox20210516, libuci20130104, libubus20210630, libnorouter
+Source: package/apps/dynamic_dns
+SourceName: dynamic_dns
+Section: Netcore packages
+SourceDateEpoch: 1683532649
+Architecture: all
+Installed-Size: 7188
+Description:  Router informations

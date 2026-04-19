@@ -1,0 +1,8 @@
+
+config cclient 'control'
+	option enable '1'
+	option router_id '074j01yn37726771'
+	option rtoken 'ZuaRbc0deyffhx7g'
+	option bind '1'
+	option connect '1'
+

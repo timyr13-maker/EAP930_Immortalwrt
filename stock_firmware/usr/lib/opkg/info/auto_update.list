@@ -1,0 +1,4 @@
+/etc/init.d/auto_update
+/etc/config/pop_windowns
+/etc/config/auto_update
+/usr/bin/auto_update

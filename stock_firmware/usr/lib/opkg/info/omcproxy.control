@@ -1,0 +1,12 @@
+Package: omcproxy
+Version: 2018-12-14-722151f0-9
+Depends: libc, libubox20210516, libubus20210630
+Source: package/network/services/omcproxy
+SourceName: omcproxy
+License: Apache-2.0
+Section: net
+SourceDateEpoch: 1702984688
+Maintainer: Steven Barth <cyrus@openwrt.org>
+Architecture: aarch64_cortex-a53
+Installed-Size: 18525
+Description:  IGMPv3 and MLDv2 Multicast Proxy

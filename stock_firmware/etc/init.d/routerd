@@ -1,0 +1,114 @@
+#!/bin/sh /etc/rc.common
+
+START=19
+STOP=92
+
+USE_PROCD=1
+
+EXTRA_COMMANDS=iface_update
+EXTRA_HELP="	iface_update misc actions for interface.* trigger"
+
+#for compatibility with old version, update network parameter.
+update_param() {
+	local line key val
+
+	uci get network.wan1.conn_name >/dev/null 2>&1
+	[ $? -eq 0 ] && return
+	echo "updating old network parameters." > /dev/console
+
+	#update bindports
+	uci show network | grep bindports | while read line; do
+		key=$(echo $line | cut -d'=' -f1)
+		val=$(echo $line | cut -d"'" -f2)
+		val=$(($val*2))
+		uci set "$key=$val"
+	done
+
+	#add default conn_name
+	uci show network | grep service_type | while read line; do
+		key=$(echo $line | cut -d'=' -f1)
+		val=$(echo $line | cut -d"'" -f2)
+		uci set "${key/service_type/conn_name}=$(echo $key | cut -d'.' -f2)_$val"
+	done
+
+	uci get network.dev_wan1_macvlan >/dev/null 2>&1
+	[ $? -eq 0 ] && {
+		#add dev_wan1_raw
+		uci set "network.dev_wan1_raw=device"
+		#add ipv6
+		uci set "network.dev_wan1_raw.ipv6=1"
+		#add name
+		uci set "network.dev_wan1_raw.name=eth1"
+		#add macaddr
+		uci show network.dev_wan1_macvlan | grep macaddr | while read line; do
+			val=$(echo $line | cut -d"'" -f2)
+			uci set "network.dev_wan1_raw.macaddr=$val"
+		done
+		uci delete network.dev_wan1_macvlan
+		#mod wan1.device eth1
+		uci set "network.wan1.device=eth1"
+
+		#update bindports
+		uci show network | grep bindports | while read line; do
+			key=$(echo $line | cut -d'=' -f1)
+			val=$(echo $line | cut -d"'" -f2)
+			val=$(($val & 0xE))
+			uci set "$key=$val"
+		done
+		#mod metric
+		uci set "network.wan1.metric=10"
+		uci set "network.wan1_ipv6.metric=10"
+	}
+
+	uci commit network
+}
+
+start_service() {
+	update_param
+	procd_open_instance
+	procd_set_param command /usr/bin/routerd
+	procd_set_param respawn
+	[ -e /proc/sys/kernel/core_pattern ] && {
+		procd_set_param limits core="unlimited"
+	}
+
+	procd_close_instance
+	echo "2" > /proc/sys/vm/drop_caches
+}
+
+add_non_dhcpv6_iface_trigger() {
+	json_add_array
+	_procd_add_array_data "$1"
+	shift
+
+	json_add_array
+	_procd_add_array_data "if"
+
+	json_add_array
+	_procd_add_array_data "not"
+	json_add_array
+	_procd_add_array_data "eq" "proto" "dhcpv6"
+	json_close_array
+	json_close_array
+
+	json_add_array
+	_procd_add_array_data "run_script" "$@"
+	json_close_array
+
+	json_close_array
+
+	json_add_int "" "2000"
+
+	json_close_array
+}
+
+service_triggers(){
+	add_non_dhcpv6_iface_trigger "interface.*" /etc/init.d/routerd iface_update
+	procd_add_config_trigger "config.change" "network" ubus call routerd update_vlan_port
+}
+
+iface_update(){
+	/etc/init.d/arp_oversee restart
+	/etc/init.d/odhcpd restart
+	/usr/bin/lan_wan_check.sh
+}

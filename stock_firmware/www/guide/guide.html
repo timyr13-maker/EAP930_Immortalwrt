@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link type="text/css" href="../css/bootstrap.min.css" rel="stylesheet"/>
+		<script type="text/javascript" src="../js/publicPlugin/app.js"></script>	
+	<script type="text/javascript">
+			document.write("<link rel='stylesheet' type='text/css' href='../css/public.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='shortcut icon' type='image/x-icon' href='../favicon.ico" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.write("<link rel='stylesheet' type='text/css' href='css/guide.css" + (isApp().isRemote ? "" : "?_=" + new Date().getTime()) + "'>");
+			document.close();
+	</script>
+    <script type="text/javascript" src="../js/publicPlugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/publicPlugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/publicPlugin/aes.js"></script>
+	<script type="text/javascript"> 
+			document.write('<script src="../js/publicPlugin/dLoad.js' + (isApp().isRemote ? "" : '?_=' + new Date().getTime()) + '"><\/script>');
+		document.close();
+	</script>
+</head>
+<body>
+	<div id="header"></div>
+	
+	<div class="article">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="page page-welcome off">
+						<form action="javascript:void(0);">
+							<input type="text" value="" class="out-screen" />
+							<input type="password" value="" class="out-screen" />
+							<div class="form">
+								<h1 class="slogan"></h1>
+								<img src="../images/lq7.png" />
+								<div class="form-group">
+									<button type="submit" class="btn btn-bigger btn-start"></button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="page page-get-method off">
+						<div class="col-sm-4 col-md-4 clearfix">
+							<div class="steps" data-step="0">
+							</div>
+						</div>
+						<div class="set-cnt col-sm-5 col-md-5">
+							<div class="detect">
+								<img src="../images/turn.gif" />
+							</div>
+							<div class="detect-tip"></div>
+							<div class="detect-time"></div>
+						</div>
+					</div>
+					<div class="page page-wan-set-result off">
+						<div class="col-sm-4 col-md-4 clearfix">
+							<div class="steps"  data-step="0">
+							</div>
+						</div>
+						<div class="set-cnt col-sm-5 col-md-5">
+							<div class="detect">
+								<img src="../images/turn.gif" />
+							</div>
+							<div class="detect-tip"></div>
+							<div class="detect-time"></div>
+						</div>
+					</div>
+					<div class="page page-set-network off">
+						<div class="col-sm-4 col-md-4 clearfix">
+							<div class="steps" data-step="0">
+							</div>
+						</div>
+						<div class="set-cnt col-sm-8 col-md-8">
+							<div class="form-group clearfix">
+								<label class="f-icon"><img src="/images/wire_icon.png" width="35" /></label>
+								<div class="f-control">
+									<div class="info wan-type-info">
+										<h2></h2>
+										<p></p>
+									</div>
+								</div>
+							</div>
+							<form action="javascript:void(0);">
+								<input type="text" value="" class="out-screen" />
+								<input type="password" value="" class="out-screen" />
+								
+								<div class="form-group clearfix" style="margin-bottom: 5px;">
+									<label class="f-label"></label>
+									<div class="f-control coverSelect">
+										<select id="wan_type_sel" ></select>
+									</div>
+								</div>
+								<div class="form-group clearfix" style="margin-bottom: 10px;">
+									<label class="f-label"></label>
+									<div class="f-control radio-info checkbox2">
+										<input type="checkbox" id="ipv6_enable" value="0">
+										<label for="wifi-same-password" class="marginTop5 chk-txt marginLeft5"></label>
+									</div>
+								</div>
+								<div class="form form-pppoe" >
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-pppoe-username" maxlength="127" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+		
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-pppoe-password" maxlength="127" autocomplete="off" type="password"  class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="form form-dhcp"></div>
+								<div class="form form-static">
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-static-ip" maxlength="15" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-static-mask" maxlength="15" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-static-gateway" maxlength="15" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+									
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-static-dns1" maxlength="15" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="input-static-dns2" maxlength="15" autocomplete="off" type="text"  class="form-control" style="display: inline-block;"/>
+											<span class="tips"></span>
+										</div>
+									</div>
+								</div>
+								<!--时区-->
+								
+								<div class="form-group clearfix">
+									<label class="f-label"></label>
+									<div class="f-control coverSelect">
+										<select id="time_zone_sel" ></select>
+									</div>
+								</div>
+								
+								<!--俄罗斯接入pppoe-->
+								<div class="form form-pppoe_r" >
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="russia_pppoe_user" maxlength="127" autocomplete="off" type="text" class="form-control" />
+										</div>
+									</div>
+		
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+											<input id="russia_pppoe_password" maxlength="127" autocomplete="off" type="password"  class="form-control" />
+										</div>
+									</div>
+									
+									<div class="form-group clearfix russia_static">
+										<label class=" f-label"></label>
+										<div class=" f-control">
+										  	 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+											    <span class="radio-bg"></span>
+											    <input type="radio" name="russia_rdio" class="radio_all " checked="checked" value="dhcp"> 
+											    <span class="radio-on"></span>
+										    	<span class="font_size14 routing-mode"></span>
+											</label>
+											 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+											    <span class="radio-bg"></span>
+											    <input type="radio" name="russia_rdio" class="radio_all" value="static"> 
+											    <span class="radio-on"></span>
+										    	<span class="font_size14 routing-mode"></span>
+											</label>
+											</div>
+									</div>
+									<div class="russia_static_address off">
+											<div class="form-group clearfix">
+													<label class=" f-label"></label>
+													<div class=" f-control">
+												      <input type="text" id="russia_other_ipaddr" name="other_ipaddr" class="form-control  allChange inline-block" autocomplete="off">
+												    </div>		   
+											</div>
+											
+											<div class="form-group clearfix">
+													<label class=" f-label"></label>
+													<div class="f-control">
+												      <input type="text" id="russia_other_netmask" name="other_netmask" class="form-control  allChange inline-block" autocomplete="off">
+												    </div>		   
+											</div>
+											
+											<div class="form-group clearfix">
+													<label class=" f-label"></label>
+													<div class=" f-control">
+												      <input type="text" id="russia_other_gateway" name="other_gateway" class="form-control  allChange inline-block" autocomplete="off">
+												    </div>   
+											</div>
+											
+										</div>
+										<div class="form-group clearfix">
+													<label class=" f-label"></label>
+													<div class=" f-control">
+												      <input type="text" id="russia_other_dns1" maxlength="15" class="form-control  allChange inline-block" autocomplete="off">
+												    	 <span class="tips" id="russia_other_dns1_tips"></span>
+													</div>   
+											</div>
+											<div class="form-group clearfix">
+													<label class=" f-label"></label>
+													<div class=" f-control">
+												      <input type="text" id="russia_other_dns2" maxlength="15" class="form-control  allChange inline-block" autocomplete="off">
+												    	 <span class="tips"></span>
+													</div>   
+											</div>
+								</div>
+								<!--l2tp-->
+								<div class="form form-l2tp">
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  		<input type="text" id="russia_l2tp_user" name="user" class="form-control  " maxlength="127" autocomplete="off">
+									  	</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  		<input type="password" id="russia_l2tp_password" name="pass" class="form-control  " maxlength="127" autocomplete="off">
+									  	</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									      <input type="text" id="l2tp_domain_id" name="id" class="form-control  allChange inline-block" autocomplete="off"> 
+									    </div>
+									</div>
+									
+									<div class="form-group clearfix russia_static">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  	 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+										    <span class="radio-bg"></span>
+										    <input type="radio" name="russia_l2tp_rdio" class="radio_all " checked="checked" value="dhcp"> 
+										    <span class="radio-on"></span>
+									    	<span class="font_size14 routing-mode"></span>
+										</label>
+										 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+										    <span class="radio-bg"></span>
+										    <input type="radio" name="russia_l2tp_rdio" class="radio_all" value="static"> 
+										    <span class="radio-on"></span>
+									    	<span class="font_size14 routing-mode"></span>
+										</label>
+										</div>
+									</div>
+									
+									<div class="russia_static_address off">
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+											      <input type="text" id="other_ipaddr_l2tp" name="other_ipaddr" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>		   
+										</div>
+										
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_netmask_l2tp" name="other_netmask" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>		   
+										</div>
+										
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_gateway_l2tp" name="other_gateway" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>   
+										</div>
+										
+									</div>
+									<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_l2tp_dns1" maxlength="15" name="other_gateway" class="form-control  allChange inline-block" autocomplete="off">
+											   	 <span class="tips" id="other_l2tp_dns1_tips" ></span>
+												</div>   
+										</div>
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_l2tp_dns2" maxlength="15" name="other_gateway" class="form-control  allChange inline-block" autocomplete="off">
+											    	 <span class="tips"></span>
+												</div>   
+										</div>
+								</div>
+								
+								<!--pptp-->
+								<div class="form form-pptp">
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  		<input type="text" id="russia_pptp_user" name="user" class="form-control  " maxlength="127" autocomplete="off">
+									  	</div>
+									</div>
+									
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  		<input type="password" id="russia_pptp_password" name="pass" class="form-control  " maxlength="127" autocomplete="off">
+									  	</div>
+									</div>
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control coverSelect">
+									  		<select id="mppe_encryption"></select>
+									  	</div>
+									</div>
+									<div class="form-group clearfix">
+										<label class="f-label"></label>
+										<div class="f-control">
+									      <input type="text" id="pptp_domain_id" name="id" class="form-control  allChange inline-block" autocomplete="off"> 
+									    </div>
+									</div>
+									
+									<div class="form-group clearfix russia_static">
+										<label class="f-label"></label>
+										<div class="f-control">
+									  	 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+										    <span class="radio-bg"></span>
+										    <input type="radio" name="russia_pptp_rdio" class="radio_all " checked="checked" value="dhcp"> 
+										    <span class="radio-on"></span>
+									    	<span class="font_size14 routing-mode"></span>
+										</label>
+										 <label class="radio2 radio_size f-color1 radio2 marginTop6">
+										    <span class="radio-bg"></span>
+										    <input type="radio" name="russia_pptp_rdio" class="radio_all" value="static"> 
+										    <span class="radio-on"></span>
+									    	<span class="font_size14 routing-mode"></span>
+										</label>
+										</div>
+									</div>
+									
+									<div class="russia_static_address off">
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="col-xs-6 col-sm-8 col-md-8 col-lg-7 f-control">
+											      <input type="text" id="other_ipaddr_pptp" name="other_ipaddr" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>		   
+										</div>
+										
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_netmask_pptp" name="other_netmask" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>		   
+										</div>
+										
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_gateway_pptp" name="other_gateway" class="form-control  allChange inline-block" autocomplete="off">
+											    </div>   
+										</div>
+										
+									</div>
+									<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_pptp_dns1" maxlength="15"  class="form-control  allChange inline-block" autocomplete="off">
+											   	<span class="tips" id="other_pptp_dns1_tips" ></span>
+												</div>   
+										</div>
+										<div class="form-group clearfix">
+												<label class="f-label"></label>
+												<div class="f-control">
+											      <input type="text" id="other_pptp_dns2" maxlength="15" class="form-control  allChange inline-block" autocomplete="off">
+											    	<span class="tips" ></span>
+												</div>   
+										</div>
+								</div>
+								<div class="form-group clearfix">
+									<label class="f-lbl"></label>
+									<div class="f-control">
+										<button type="submit" class="btn btn-next mt-20"></button>
+										<div class="marginTop10">
+											<a href="javascript:void(0);" class="sub-choose"></a>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="page page-set-wifi off">
+						<div class="col-sm-4 col-md-4 clearfix">
+							<div class="steps"  data-step="1">
+							</div>
+						</div>
+						<div class="set-cnt col-sm-8 col-md-8">
+							<div class="form-group clearfix">
+								<label class="f-icon" style="visibility: hidden;"><img src="/images/wireless_icon.png" width="30" /></label>
+								<div class="f-control">
+									<div class="info">
+										<h2 class="title"></h2>
+										<p class="describe"></p>
+									</div>
+								</div>
+							</div>
+							<form action="javascript:void(0);">
+								<input type="text" value="" class="out-screen" />
+								<input type="password" value="" class="out-screen" />
+								
+								<div class="form-group clearfix off">
+									<label class="f-label"></label>
+									<div class="f-control">
+										<input id="input-wifi-ssid" autocomplete="off" type="text" maxlength="29" class="form-control" />
+									</div>
+								</div>
+								
+								<div class="form-group clearfix off">
+									<label class="f-label"></label>
+									<div class="f-control">
+										<input id="wifi-input-wifi-password" onblur="remove_ck_pwd(this.id);" onkeyup="ck_pwd(this.id,this.value);" onfocus="ck_pwd(this.id,this.value);" maxlength="63" autocomplete="off" type="password" class="form-control" />
+									</div>
+								</div>
+								
+								
+								<div class="form-group clearfix " id="wifi-admin-pwd">
+									<label class="f-label"></label>
+									<div class="f-control">
+										<input id="wifi-input-admin-password" onblur="remove_ck_pwd(this.id);" onkeyup="ck_pwd(this.id,this.value);" onfocus="ck_pwd(this.id,this.value);" maxlength="63" autocomplete="off" type="password" class="form-control" />
+									</div>
+								</div>
+								
+								<div class="form-group clearfix" style="margin-bottom:0;">
+									<label class="f-lbl"></label>
+									<div class="f-control">
+										<div class="radio radio-info">
+											<input type="checkbox" id="wifi-same-password" checked="checked" />
+											<label for="wifi-same-password" class="chk-txt"></label>
+										</div>
+									</div>
+								</div>
+								
+								<!--原版紧急升级，先隐藏掉，有阅读申明在开启-->
+								<div class="form-group clearfix hidden">
+									<label class="f-lbl"></label>
+									<div class="f-control">
+										<div class="radio radio-info">
+											<input type="checkbox" id="chk-auto_update" checked="checked" />
+											<label for="chk-auto_update" class="chk-txt"></label>
+										</div>
+									</div>
+								</div>
+								
+								<!--暂用此方法的紧急升级选项-->
+								<div class="form-group ">
+									<label class="f-lbl upgrade_text"></label>
+									<div class="f-control">
+										
+									</div>
+								</div>
+								
+								<div class="form-group clearfix marginTop10">
+									<label class="f-lbl"></label>
+									<div class="f-control">
+										<div class="radio radio-info">
+											<input type="radio" name="chk_auto_update" style="cursor: pointer;" />
+											<label for="chk-auto_update" class="chk-txt"></label>
+										</div>
+										<div class="radio radio-info">
+											<input type="radio" name="chk_auto_update" style="cursor: pointer;" />
+											<label for="chk-auto_update" class="chk-txt"></label>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group clearfix">
+									<label class="f-lbl"></label>
+									<div class="f-control">
+										<button type="submit" class="btn btn-save mt-20"></button>
+										<!--<div class="marginTop10">
+											<a href="javascript:void(0);" class="sub-choose"></a>
+										</div>-->
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="page page-end off">
+						<div class="col-sm-4 col-md-4 clearfix">
+							<div class="steps"  data-step="2">
+							</div>
+						</div>
+						<div class="set-cnt col-sm-5 col-md-5">
+							<form action="javascript:void(0);">
+								<input type="text" value="" class="out-screen" />
+								<input type="password" value="" class="out-screen" />
+								<div class="info">
+									<img src="../images/lq6.png" />
+									<h2 class="title"></h2>
+									<p class="describe"></p>
+								</div>
+								<div class="wifi-info">
+									<div id="ssid-2-4G" class="row"><span id="lbl-ssid-2-4G"></span><span id="wifi-name-2-4G"></span></div>
+									<div id="ssid-5g" class="row"><span id="lbl-ssid-5G"></span><span id="wifi-name-5g"></span></div><!-- off-->
+								</div>
+								<div class="form-group clearfix" style="text-align:center;">
+									<button type="submit" class="btn btn-end mt-20"></button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+
+<div class="modal fade" id="wifiPwdModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title"></h4>
+		  </div>
+		  <div class="modal-body">
+		  	<!--<p class="single-tip"></p>-->
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="dialog-btn btn-cancel"></button>
+			<button type="button" class="dialog-btn btn-confirm" data-dismiss="modal"></button>
+		  </div>
+		</div>
+	</div>
+</div>
+	
+	
+	<div id="lock_div"></div>
+	<div id="message_layer">
+		<div id="msg_type" class="wait"></div>
+		<div id="msg" class="word"></div>
+	</div>
+	<script type="text/javascript">
+	
+		current_html = "guide";
+		loadJsQueue(["guide"]);
+	</script>
+	</script>
+</body>
+</html>

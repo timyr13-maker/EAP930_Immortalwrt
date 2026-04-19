@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#handle query string
+QUERY_STRING=$(printf $(echo -n "$QUERY_STRING" | sed 's/\\/\\\\/g;s/\(%\)\([0-9a-fA-F][0-9a-fA-F]\)/\\x\2/g'))
+while [ true ]; do
+	param=${QUERY_STRING%%&*}
+	QUERY_STRING=${QUERY_STRING#*&}
+	val=${param#*=}
+	key=${param%%=*}
+	key="${key//[^a-zA-Z0-9_]/_}"
+	eval "${key}=$(echo -n '${val}')"
+	if [ "$param" = "$QUERY_STRING" ] || [ ${#param} -le 0 ]; then
+		break
+	fi
+done
+
+cat << EOF
+Status: 200 OK
+Content-type: text/javascript; charset=utf-8
+
+typeof $cb === 'function' && $cb({
+  "errorCode": 0
+});
+EOF
+
