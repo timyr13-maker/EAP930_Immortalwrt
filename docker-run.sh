@@ -11,9 +11,16 @@ if [[ "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
     docker build -t "$IMAGE_NAME" .
 fi
 
-echo "Starting build container..."
-echo "Your project files are mounted at /home/builder/project"
-echo "To build: clone immortalwrt inside the container, then run project/openwrt_port/install_port.sh"
+# Determine command to run inside container
+# Default is bash (interactive), but if "auto" is passed, run auto-build.sh
+CONTAINER_CMD="/bin/bash"
+if [ "${1:-}" == "auto" ]; then
+    echo "Running in AUTOMATED build mode."
+    CONTAINER_CMD="bash /home/builder/project/auto-build.sh"
+else
+    echo "Running in INTERACTIVE mode."
+    echo "Project files are mounted at /home/builder/project"
+fi
 
 # Run the container
 # -it: interactive and tty
@@ -24,4 +31,5 @@ docker run -it --rm \
     --name "$CONTAINER_NAME" \
     -v "$PROJECT_DIR:/home/builder/project" \
     -w /home/builder \
-    "$IMAGE_NAME"
+    "$IMAGE_NAME" \
+    $CONTAINER_CMD
