@@ -29,6 +29,9 @@ fi
 # -w: set working directory inside container
 mkdir -p "$PROJECT_DIR/immortalwrt-build"
 
+# Remove old container with the same name if it exists
+docker rm -f "$CONTAINER_NAME" 2>/dev/null || true
+
 docker run -it \
     --name "$CONTAINER_NAME" \
     -v "$PROJECT_DIR:/home/builder/project" \
