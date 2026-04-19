@@ -15,3 +15,5 @@ tmp/
 .idea/
 .DS_Store
 *.swp
+# Stock firmware backups
+update stock/
