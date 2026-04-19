@@ -12,9 +12,9 @@ board=$(board_name)
 uci set network.lan.proto='dhcp'
 
 # Remove default static IP addresses
-uci delete network.lan.ipaddr
-uci delete network.lan.netmask
-uci delete network.lan.ip6assign
+uci -q delete network.lan.ipaddr
+uci -q delete network.lan.netmask
+uci -q delete network.lan.ip6assign
 
 # Disable DHCP server on LAN
 uci set dhcp.lan.ignore='1'
