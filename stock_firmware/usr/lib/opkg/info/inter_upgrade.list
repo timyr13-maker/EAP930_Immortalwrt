@@ -1,5 +1,0 @@
-/etc/init.d/inter_upgrade
-/usr/bin/gen_firmware.sh
-/etc/synconf
-/etc/config/inter_upgrade
-/usr/bin/inter_upgrade

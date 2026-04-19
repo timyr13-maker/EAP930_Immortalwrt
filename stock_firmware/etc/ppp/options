@@ -1,9 +1,0 @@
-#debug
-logfile /dev/null
-noipdefault
-noaccomp
-nopcomp
-nomppe
-nocrtscts
-lock
-maxfail 0

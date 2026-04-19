@@ -4,7 +4,6 @@ This repository contains the original stock firmware files and a modernized Open
 
 ## Repository Structure
 
--   `stock_firmware/`: Files extracted from the original Netis firmware (Mediatek SDK based on OpenWrt 21.02). Useful for reverse-engineering and comparing configurations.
 -   `openwrt_port/`: Consolidated port files for ImmortalWrt 24.10.
     -   `target/linux/mediatek/`: DTS and Image Makefile.
     -   `base-files/etc/`: Board-specific scripts (LEDs, network, system).

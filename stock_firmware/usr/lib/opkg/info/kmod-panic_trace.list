@@ -1,5 +1,0 @@
-/etc/init.d/panic_trace.init
-/lib/modules/5.4.246/panic_trace.ko
-/etc/modules.d/panic_trace
-/usr/bin/trace.sh
-/usr/bin/panic_trace

@@ -1,4 +1,0 @@
-/etc/firewall/firewall.devices_app
-/usr/bin/devices_app
-/etc/uci-defaults/firewall-append-30-devices_app
-/etc/init.d/devices_app

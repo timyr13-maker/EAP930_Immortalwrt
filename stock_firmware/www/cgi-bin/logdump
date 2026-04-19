@@ -1,9 +1,0 @@
-#! /bin/sh
-
-cat << EOF
-Status: 200 OK
-Content-type: text/plain
-
-`logread -z1`
-EOF
-

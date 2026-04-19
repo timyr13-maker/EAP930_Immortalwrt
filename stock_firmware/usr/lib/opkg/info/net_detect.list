@@ -1,6 +1,0 @@
-/usr/bin/detect_dns
-/etc/init.d/mwan3
-/usr/libexec/rpcd/mwan3
-/etc/init.d/net_detect
-/usr/sbin/mwan3track
-/usr/bin/net_detect

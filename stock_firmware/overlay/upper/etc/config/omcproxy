@@ -1,9 +1,0 @@
-config proxy
-	option scope global
-	option uplink wan1
-	list downlink lan
-
-config proxy
-	option scope global
-	option uplink wan1_ipv6
-	list downlink lan
