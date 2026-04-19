@@ -24,12 +24,15 @@ fi
 
 # Run the container
 # -it: interactive and tty
-# --rm: remove container after exit
-# -v: mount current directory
+# --name: set container name
+# -v: mount project and build directory for persistence
 # -w: set working directory inside container
-docker run -it --rm \
+mkdir -p "$PROJECT_DIR/immortalwrt-build"
+
+docker run -it \
     --name "$CONTAINER_NAME" \
     -v "$PROJECT_DIR:/home/builder/project" \
+    -v "$PROJECT_DIR/immortalwrt-build:/home/builder/immortalwrt-build" \
     -w /home/builder \
     "$IMAGE_NAME" \
     $CONTAINER_CMD

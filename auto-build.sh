@@ -43,3 +43,7 @@ make -j$(nproc) V=s || {
 
 echo "=== BUILD COMPLETE! ==="
 echo "Your firmware images are located in $BUILD_DIR/bin/targets/mediatek/filogic/"
+
+# Safety measure to prevent container from exiting and being removed due to --rm flag
+echo "CONTAINER IS STAYING ALIVE. Access it using: docker exec -it eap930-build-container bash"
+sleep infinity
