@@ -10,6 +10,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 DRY_RUN=0
+MODE="ap"
 OPENWRT_DIR=""
 
 for arg in "$@"; do
@@ -17,9 +18,16 @@ for arg in "$@"; do
         --dry-run)
             DRY_RUN=1
             ;;
+        --mode=*)
+            MODE="${arg#*=}"
+            if [[ "$MODE" != "ap" && "$MODE" != "router" ]]; then
+                echo -e "${RED}Error: Invalid mode: $MODE. Use 'ap' or 'router'.${NC}"
+                exit 1
+            fi
+            ;;
         -*)
             echo -e "${RED}Error: Unknown option: $arg${NC}"
-            echo "Usage: $0 [--dry-run] /home/user/openwrt-build"
+            echo "Usage: $0 [--dry-run] [--mode=ap|router] /home/user/openwrt-build"
             exit 1
             ;;
         *)
@@ -36,7 +44,7 @@ done
 
 if [ -z "$OPENWRT_DIR" ]; then
     echo -e "${RED}Error: Please specify the path to OpenWrt source directory.${NC}"
-    echo "Usage: $0 [--dry-run] /home/user/openwrt-build"
+    echo "Usage: $0 [--dry-run] [--mode=ap|router] /home/user/openwrt-build"
     exit 1
 fi
 
@@ -103,7 +111,20 @@ sync_file "$SCRIPT_DIR/base-files/etc/board.d/02_network" "$BOARD_D_DIR/02_netwo
 # 5. UCI Defaults
 UCI_DEFAULTS_DIR="$OPENWRT_DIR/target/linux/mediatek/filogic/base-files/etc/uci-defaults"
 sync_file "$SCRIPT_DIR/base-files/etc/uci-defaults/99-netis-eap930" "$UCI_DEFAULTS_DIR/99-netis-eap930" 755
-sync_file "$SCRIPT_DIR/base-files/etc/uci-defaults/99-dumb-ap" "$UCI_DEFAULTS_DIR/99-dumb-ap" 755
+
+if [ "$MODE" = "ap" ]; then
+    sync_file "$SCRIPT_DIR/base-files/etc/uci-defaults/99-dumb-ap" "$UCI_DEFAULTS_DIR/99-dumb-ap" 755
+else
+    # In router mode, ensure 99-dumb-ap is NOT present
+    if [ -f "$UCI_DEFAULTS_DIR/99-dumb-ap" ]; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            echo "Would remove: $UCI_DEFAULTS_DIR/99-dumb-ap"
+        else
+            rm -f "$UCI_DEFAULTS_DIR/99-dumb-ap"
+            echo "Removed:      $UCI_DEFAULTS_DIR/99-dumb-ap (switching to router mode)"
+        fi
+    fi
+fi
 
 echo -e "${GREEN}SYNCHRONIZATION COMPLETE!${NC}"
 echo "Files have been successfully installed into the target tree."

@@ -30,6 +30,17 @@ This repository contains the original stock firmware files and a modernized Open
     make -j$(nproc) V=s
     ```
 
+## Режимы работы (Operation Modes)
+
+По умолчанию прошивка собирается в режиме **Dumb AP** (только точка доступа). Это идеально, когда основным роутером выступает устройство вроде MikroTik.
+
+Чтобы сменить режим, откройте файл `auto-build.sh` и измените переменную `PORT_MODE`:
+
+*   `PORT_MODE="ap"` — (по умолчанию) DHCP-клиент, Wi-Fi в режиме бриджа, свой DHCP-сервер выключен.
+*   `PORT_MODE="router"` — Статический IP `192.168.1.1`, встроенный DHCP-сервер включен.
+
+После смены режима просто запустите сборку заново.
+
 ### Option B: Docker Build (Recommended)
 
 1.  Start the build container:

@@ -6,6 +6,7 @@ BUILD_DIR="/home/builder/immortalwrt-build"
 PROJECT_DIR="/home/builder/project"
 IMMORTALWRT_REPO="https://github.com/immortalwrt/immortalwrt.git"
 BRANCH="openwrt-24.10"
+PORT_MODE="ap"  # Options: "ap" (Access Point) or "router" (Normal Router)
 
 echo "=== STARTING AUTO BUILD PROCESS ==="
 
@@ -18,8 +19,8 @@ else
 fi
 
 # 2. Install the port
-echo "Installing EAP930 port files..."
-bash "$PROJECT_DIR/openwrt_port/install_port.sh" "$BUILD_DIR"
+echo "Installing EAP930 port files (Mode: $PORT_MODE)..."
+bash "$PROJECT_DIR/openwrt_port/install_port.sh" --mode="$PORT_MODE" "$BUILD_DIR"
 
 cd "$BUILD_DIR"
 
