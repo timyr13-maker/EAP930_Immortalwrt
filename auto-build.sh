@@ -10,7 +10,7 @@ BRANCH="openwrt-24.10"
 echo "=== STARTING AUTO BUILD PROCESS ==="
 
 # 1. Clone ImmortalWrt if it doesn't exist
-if [ ! -d "$BUILD_DIR" ]; then
+if [ ! -d "$BUILD_DIR/.git" ]; then
     echo "Cloning ImmortalWrt ($BRANCH)..."
     git clone -b "$BRANCH" --depth 1 "$IMMORTALWRT_REPO" "$BUILD_DIR"
 else
