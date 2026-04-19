@@ -12,6 +12,8 @@ This repository contains the original stock firmware files and a modernized Open
 
 ## How to Build
 
+### Option A: Local Build (Ubuntu/Debian)
+
 1.  Clone ImmortalWrt 24.10:
     ```bash
     git clone -b openwrt-24.10 --depth 1 https://github.com/immortalwrt/immortalwrt.git openwrt-build
@@ -23,10 +25,29 @@ This repository contains the original stock firmware files and a modernized Open
 3.  Configure and build:
     ```bash
     cd openwrt-build
-    # Seed the configuration
     cp ../openwrt_port/seed.config .config
     make defconfig
+    make -j$(nproc) V=s
+    ```
+
+### Option B: Docker Build (Recommended)
+
+1.  Start the build container:
+    ```bash
+    ./docker-run.sh
+    ```
+2.  Inside the container:
+    ```bash
+    # Clone ImmortalWrt
+    git clone -b openwrt-24.10 --depth 1 https://github.com/immortalwrt/immortalwrt.git build-dir
+    
+    # Install the port
+    bash project/openwrt_port/install_port.sh $(pwd)/build-dir
+    
     # Build
+    cd build-dir
+    cp ../project/openwrt_port/seed.config .config
+    make defconfig
     make -j$(nproc) V=s
     ```
 
