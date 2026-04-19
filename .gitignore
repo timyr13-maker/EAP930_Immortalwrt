@@ -15,5 +15,6 @@ tmp/
 .idea/
 .DS_Store
 *.swp
-# Stock firmware backups
+# Build and persistent data
+immortalwrt-build/
 update stock/
