@@ -79,8 +79,8 @@ sync_file() {
 
 # 1. Device Tree
 sync_file \
-    "$SCRIPT_DIR/target/linux/mediatek/dts/mt7981b-netis-eap930.dts" \
-    "$OPENWRT_DIR/target/linux/mediatek/dts/mt7981b-netis-eap930.dts"
+    "$SCRIPT_DIR/target/linux/mediatek/dts/mt7981-netis-eap930.dts" \
+    "$OPENWRT_DIR/target/linux/mediatek/dts/mt7981-netis-eap930.dts"
 
 # 2. Image Makefile
 sync_file \
@@ -108,26 +108,7 @@ BOARD_D_DIR="$OPENWRT_DIR/target/linux/mediatek/filogic/base-files/etc/board.d"
 sync_file "$SCRIPT_DIR/base-files/etc/board.d/01_leds" "$BOARD_D_DIR/01_leds" 755
 sync_file "$SCRIPT_DIR/base-files/etc/board.d/02_network" "$BOARD_D_DIR/02_network" 755
 
-# 5. Fix missing SoC DTS includes (Common Filogic fallback)
-# Some SDKs use mt7981.dtsi, others mt7981b.dtsi. We ensure both exist in target dts dir.
-DTS_TARGET_DIR="$OPENWRT_DIR/target/linux/mediatek/dts"
-SOC_FILE_SRC=$(find "$OPENWRT_DIR/target/linux/mediatek/" -name "mt7981.dtsi" | head -n 1)
-
-if [ -n "$SOC_FILE_SRC" ]; then
-    if [ "$DRY_RUN" -eq 1 ]; then
-        echo "Would ensure mt7981.dtsi and mt7981b.dtsi exist in $DTS_TARGET_DIR"
-    else
-        # Copy the base SoC file to the include path expected by device DTS files
-        cp -L "$SOC_FILE_SRC" "$DTS_TARGET_DIR/mt7981.dtsi"
-        # Create a symlink for the 'b' variant to satisfy all device trees
-        ln -sf "mt7981.dtsi" "$DTS_TARGET_DIR/mt7981b.dtsi"
-        echo "Fixed SoC DTS includes in $DTS_TARGET_DIR"
-    fi
-else
-    echo -e "${RED}Warning: mt7981.dtsi not found in target tree. Build might fail if SoC files are missing.${NC}"
-fi
-
-# 6. UCI Defaults
+# 5. UCI Defaults
 UCI_DEFAULTS_DIR="$OPENWRT_DIR/target/linux/mediatek/filogic/base-files/etc/uci-defaults"
 sync_file "$SCRIPT_DIR/base-files/etc/uci-defaults/99-netis-eap930" "$UCI_DEFAULTS_DIR/99-netis-eap930" 755
 
