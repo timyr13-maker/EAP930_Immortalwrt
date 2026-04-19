@@ -6,7 +6,10 @@ BUILD_DIR="/home/builder/immortalwrt-build"
 PROJECT_DIR="/home/builder/project"
 IMMORTALWRT_REPO="https://github.com/immortalwrt/immortalwrt.git"
 BRANCH="openwrt-24.10"
-PORT_MODE="ap"  # Options: "ap" (Access Point) or "router" (Normal Router)
+
+# Mode selection: prioritizes argument, then fallback to variable
+PORT_MODE="${1:-ap}"  # Default is 'ap' if no argument is provided
+echo "Selected Operation Mode: $PORT_MODE"
 
 echo "=== STARTING AUTO BUILD PROCESS ==="
 

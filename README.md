@@ -30,37 +30,25 @@ This repository contains the original stock firmware files and a modernized Open
     make -j$(nproc) V=s
     ```
 
-## Режимы работы (Operation Modes)
+## Режимы работы и запуск (Docker)
 
-По умолчанию прошивка собирается в режиме **Dumb AP** (только точка доступа). Это идеально, когда основным роутером выступает устройство вроде MikroTik.
+Для удобства создано два отдельных скрипта запуска. Выберите тот, который подходит под вашу задачу:
 
-Чтобы сменить режим, откройте файл `auto-build.sh` и измените переменную `PORT_MODE`:
+### 1. Режим точки доступа (Dumb AP) — Рекомендуется
+Идеально для работы в связке с MikroTik или другим основным роутером.
+*   **Режим**: DHCP-клиент, Wi-Fi — мост, свой DHCP-сервер выключен.
+```bash
+./docker-run-ap.sh
+```
 
-*   `PORT_MODE="ap"` — (по умолчанию) DHCP-клиент, Wi-Fi в режиме бриджа, свой DHCP-сервер выключен.
-*   `PORT_MODE="router"` — Статический IP `192.168.1.1`, встроенный DHCP-сервер включен.
+### 2. Режим роутера (Normal Router)
+Если EAP930 будет единственным роутером в сети.
+*   **Режим**: Статический IP `192.168.1.1`, встроенный DHCP-сервер включен.
+```bash
+./docker-run-router.sh
+```
 
-После смены режима просто запустите сборку заново.
-
-### Option B: Docker Build (Recommended)
-
-1.  Start the build container:
-    ```bash
-    ./docker-run.sh
-    ```
-2.  Inside the container:
-    ```bash
-    # Clone ImmortalWrt
-    git clone -b openwrt-24.10 --depth 1 https://github.com/immortalwrt/immortalwrt.git build-dir
-    
-    # Install the port
-    bash project/openwrt_port/install_port.sh $(pwd)/build-dir
-    
-    # Build
-    cd build-dir
-    cp ../project/openwrt_port/seed.config .config
-    make defconfig
-    make -j$(nproc) V=s
-    ```
+Прошивка будет собрана в папке `immortalwrt-build/bin/targets/mediatek/filogic/`.
 
 ## Status
 

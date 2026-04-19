@@ -15,8 +15,9 @@ fi
 # Default is bash (interactive), but if "auto" is passed, run auto-build.sh
 CONTAINER_CMD="/bin/bash"
 if [ "${1:-}" == "auto" ]; then
-    echo "Running in AUTOMATED build mode."
-    CONTAINER_CMD="bash /home/builder/project/auto-build.sh"
+    MODE="${2:-ap}"
+    echo "Running in AUTOMATED build mode (Target: $MODE)."
+    CONTAINER_CMD="bash /home/builder/project/auto-build.sh $MODE"
 else
     echo "Running in INTERACTIVE mode."
     echo "Project files are mounted at /home/builder/project"
